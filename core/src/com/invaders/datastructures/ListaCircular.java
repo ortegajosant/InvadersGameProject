@@ -128,4 +128,9 @@ public class ListaCircular<T> {
     public int getLength() {
         return length;
     }
+    
+    public void erase() {
+    	this.last = null;
+    	this.length = 0;
+    }
 }

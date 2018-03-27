@@ -120,5 +120,10 @@ public class ListaDoble<T> {
             }
         }
     }
+    
+    public void erase() {
+    	this.first = null;
+    	this.length = 0;
+    }
 }
 

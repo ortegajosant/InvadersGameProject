@@ -34,7 +34,7 @@ public class LevelOne extends Window {
 	}
 
 	public void renderGame() {
-		Gdx.gl.glClearColor(7f, 17f, 80f, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		invadersLauncher.batch.begin();
 		for (int i = 0; i < bullets.getlength(); i++) {

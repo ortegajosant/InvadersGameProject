@@ -94,22 +94,12 @@ public class ListaSimple<T> {
 	}
 
 	public void remove(T dato) {
-		NodoSimple<T> temp = first;
 		if (first.getDato() == dato) {
-			if (length == 1) {
-				erase();
-			} else {
-				for (int i = 0; i < length; i++) {
-					if(temp.getNext() == first) {
-						this.first = first.getNext();
-						temp.setNext(first);
-						length -= 1;
-						break;
-					}
-					temp = temp.getNext();
-				}
-			}
+			first = first.getNext();
+			this.length -= 1;  
+		
 		} else {
+			NodoSimple<T> temp = first;
 			NodoSimple<T> prev = first;
 			for (int i = 0; i < length; i++) {
 				if (temp.getDato() == dato) {
@@ -121,7 +111,6 @@ public class ListaSimple<T> {
 					temp = temp.getNext();
 				}
 			}
-
 		}
 	}
 

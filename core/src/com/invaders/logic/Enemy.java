@@ -3,9 +3,9 @@ package com.invaders.logic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Enemy {
 	private int resistencia;
@@ -13,8 +13,13 @@ public class Enemy {
 	private TextureRegion[] sprites;
 	private float tiempo;
 	TextureRegion frame;
+	private float xCoord;
+	private float yCoord;
+	private float speed = 30;
+	private boolean direction = true;
+	private Rectangle rectangleCollision;
 	
-	public Enemy(int resistencia, Texture image) {
+	public Enemy(int resistencia, Texture image, float xCoord, float yCoord) {
 		Texture imageH = image;
 		this.resistencia = resistencia;
 		this.tiempo = 0;
@@ -23,16 +28,53 @@ public class Enemy {
 		sprites[0] = temp[0][0];
 		sprites[1] = temp[0][1];
 		animation = new Animation<>(1/2f, sprites);
+		this.xCoord = xCoord;
+		this.yCoord = yCoord;
+		rectangleCollision = new Rectangle(this.xCoord, this.yCoord, 32, 32);
 		
 	}
 	
 	public void render(final SpriteBatch batch) {
-		tiempo += Gdx.graphics.getDeltaTime();
+		setRectanglePosition();
+ 		tiempo += Gdx.graphics.getDeltaTime();
 		frame = animation.getKeyFrame(tiempo, true);
-		batch.draw(frame, 25, 25);
+		batch.draw(frame, xCoord, yCoord);
 	}
 	
-	public void move() {
-		
+	public void move(float deltatime, boolean limit) {
+		if (!limit) {
+			if (direction) {
+				xCoord += this.speed * deltatime;
+			} else {
+				xCoord -= this.speed * deltatime;
+			}
+		} else {
+			if (xCoord < 50) {
+				xCoord += (this.speed + 1) * deltatime;
+			} else {
+				xCoord -= (this.speed + 1) * deltatime;
+			}
+			this.yCoord -= 500 * deltatime;
+			this.direction = !direction;
+		}
+	}
+	
+	
+	public float getXCoord() {
+		return xCoord;
+	}
+	
+	public Rectangle getRectangle() {
+		return rectangleCollision;
+	}
+	
+	public void setRectanglePosition() {
+		rectangleCollision.setX(this.xCoord);
+		rectangleCollision.setY(this.yCoord);
+	}
+
+	public float getYCoord() {
+		// TODO Auto-generated method stub
+		return this.yCoord;
 	}
 }

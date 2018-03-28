@@ -24,6 +24,10 @@ public class Bullet {
 		return 0;
 	}
 	
+	/**
+	 * Designa el valor de remove para cada bullet en el juego, cuando esta colisiona el valor cambia a true y se elimina del juego.
+	 * @param deltaTime 
+	 */
 	public void update(float deltaTime) {
 		yCoord += 400 * deltaTime;
 		if(yCoord > Gdx.graphics.getHeight()) {

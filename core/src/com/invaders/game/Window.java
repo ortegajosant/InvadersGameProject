@@ -1,6 +1,7 @@
 package com.invaders.game;
 
 import com.badlogic.gdx.Screen;
+import com.invaders.game.InvadersLauncher;
 
 public abstract class Window implements Screen{
 	

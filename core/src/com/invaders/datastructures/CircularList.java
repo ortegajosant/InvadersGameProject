@@ -84,6 +84,27 @@ public class CircularList<T> {
 
 	}
 
+	public void remove(T dato) {
+		if (last.getDato() == dato) {
+			remove(0);
+		} else {
+			int i = 0;
+			SimpleNode<T> temp = last;
+			SimpleNode<T> prev = last;
+			while (i < length) {
+				if (temp.getDato() == dato) {
+					prev.setNext(temp.getNext());
+					length -= 1;
+					break;
+				}
+				prev = temp;
+				temp = temp.getNext();
+				i++;
+			}
+		}
+
+	}
+
 	public void remove(int index) {
 		SimpleNode<T> temp = last;
 		int i;
@@ -101,12 +122,10 @@ public class CircularList<T> {
 		} else {
 			SimpleNode<T> prev = last;
 			i = 0;
-			while (index < length) {
+			while (i < length) {
 				if (i == index) {
 					prev.setNext(temp.getNext());
 					length -= 1;
-					break;
-				} else if (i > index) {
 					break;
 				}
 				prev = temp;
@@ -114,6 +133,46 @@ public class CircularList<T> {
 				i++;
 			}
 		}
+	}
+
+	public void addLast(SimpleNode<T> nodo) {
+		this.last = nodo;
+		last.setNext(last);
+		length += 1;
+	}
+
+	public void replace(int index, SimpleNode<T> nodo) {
+		if (index >= length) {
+			throw new IndexOutOfBoundsException("Index out of range");
+		} else {
+			SimpleNode<T> temp = last;
+			if (index == 0) {
+				for (int i = 0; i < length; i++) {
+					if (temp.getNext() == last) {
+						nodo.setNext(last.getNext());
+						last = nodo;
+						temp.setNext(last);
+						break;
+					} 
+					temp = temp.getNext();
+				}
+			} else {
+				SimpleNode<T> prev = last;
+				int i = 0;
+				while (i < length) {
+					if (i == index) {
+						nodo.setNext(temp.getNext());
+						prev.setNext(nodo);
+						break;
+					} else {
+						prev = temp;
+						temp = temp.getNext();
+						i += 1;
+					}
+				}
+			}
+		}
+
 	}
 
 	public void print() {
@@ -128,13 +187,25 @@ public class CircularList<T> {
 		return length;
 	}
 
+	public SimpleNode<T> getLast() {
+		return this.last;
+	}
+
 	public void erase() {
 		this.last = null;
 		this.length = 0;
 	}
 
 	public T find(int index) {
-		// TODO Auto-generated method stub
+		SimpleNode<T> temp = last;
+		if (index < length) {
+			for (int i = 0; i <= index; i++) {
+				if (i == index) {
+					return temp.getDato();
+				}
+				temp = temp.getNext();
+			}
+		}
 		return null;
 	}
 }

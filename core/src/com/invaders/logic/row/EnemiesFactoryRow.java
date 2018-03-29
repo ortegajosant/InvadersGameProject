@@ -14,7 +14,7 @@ public class EnemiesFactoryRow {
 		}
 		return instance;
 	}
-	public EnemyRowInterface createEnemyRow(int level, String rowType) {
+	public AbstractEnemyRow createEnemyRow(int level, String rowType) {
 		switch (level) {
 		case 1:
 			return new BasicRow();

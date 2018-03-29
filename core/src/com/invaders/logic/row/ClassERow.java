@@ -4,10 +4,10 @@ import com.invaders.datastructures.SimpleList;
 import com.invaders.game.InvadersLauncher;
 import com.invaders.logic.Bullet;
 
-public class ClassERow implements EnemyRowInterface {
+public class ClassERow extends AbstractEnemyRow {
 
 	@Override
-	public void makeRow() {
+	public void makeRow(boolean newRow) {
 		// TODO Auto-generated method stub
 
 	}
@@ -20,12 +20,6 @@ public class ClassERow implements EnemyRowInterface {
 
 	@Override
 	public void deleteRow() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void reformRow() {
 		// TODO Auto-generated method stub
 
 	}
@@ -51,6 +45,6 @@ public class ClassERow implements EnemyRowInterface {
 	@Override
 	public void changeBoss() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

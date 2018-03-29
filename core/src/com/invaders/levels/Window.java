@@ -8,12 +8,12 @@ import com.invaders.logic.KeyObserver;
 import com.invaders.logic.Nave;
 import com.invaders.logic.Weapon;
 import com.invaders.logic.row.EnemiesFactoryRow;
-import com.invaders.logic.row.EnemyRowInterface;
+import com.invaders.logic.row.AbstractEnemyRow;
 
 public abstract class Window implements Screen {
 	protected InvadersLauncher invadersLauncher;
 	protected Nave player;
-	protected EnemyRowInterface enemiesRow;
+	protected AbstractEnemyRow enemiesRow;
 	protected EnemiesFactoryRow factory;
 	protected KeyObserver keyObserver;
 	protected Weapon bullets;

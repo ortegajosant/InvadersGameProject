@@ -8,12 +8,12 @@ import com.invaders.game.InvadersLauncher;
 import com.invaders.logic.Bullet;
 import com.invaders.logic.Enemy;
 
-public class BasicRow implements EnemyRowInterface {
+public class BasicRow extends AbstractEnemyRow {
 
 	private SimpleList<Enemy> row;
 
 	public BasicRow() {
-		makeRow();
+		makeRow(true);
 	}
 
 	/**
@@ -32,11 +32,14 @@ public class BasicRow implements EnemyRowInterface {
 	 * Crea nueva hilera.
 	 */
 	@Override
-	public void makeRow() {
-		row = new SimpleList<>();
+	public void makeRow(boolean newRow) {
+		if (newRow) {
+			row = new SimpleList<>();
+		}
 		float xCoord = 51;
 		for (int i = 0; i < 11; i++) {
-			row.add(new SimpleNode<Enemy>(new Enemy(0, new Texture("images/enemy3.png"), xCoord, 490, 30, false, true)));
+			row.add(new SimpleNode<Enemy>(
+					new Enemy(0, new Texture("images/enemy3.png"), xCoord, 490, 30, false, true)));
 			xCoord += 65;
 		}
 	}
@@ -60,27 +63,6 @@ public class BasicRow implements EnemyRowInterface {
 					}
 				}
 			}
-		}
-	}
-
-	@Override
-	/**
-	 * Elimina la hilera por completo.
-	 */
-	public void deleteRow() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	/**
-	 * Recrea la hilera de nuevo.
-	 */
-	public void reformRow() {
-		float xCoord = 51;
-		for (int i = 0; i < 11; i++) {
-			row.add(new SimpleNode<Enemy>(new Enemy(1, new Texture("images/enemy3.png"), xCoord, 490, 30, false, true)));
-			xCoord += 65;
 		}
 	}
 
@@ -114,11 +96,4 @@ public class BasicRow implements EnemyRowInterface {
 		}
 
 	}
-
-	@Override
-	public void changeBoss() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

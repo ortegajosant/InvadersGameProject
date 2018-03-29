@@ -8,26 +8,30 @@ import com.invaders.game.InvadersLauncher;
 import com.invaders.logic.Bullet;
 import com.invaders.logic.Enemy;
 
-public class ClassARow implements EnemyRowInterface {
+public class ClassARow extends AbstractEnemyRow {
 
 	private SimpleList<Enemy> row;
 
 	public ClassARow() {
-		makeRow();
+		makeRow(true);
 	}
 
 	@Override
-	public void makeRow() {
-		row = new SimpleList<>();
+	public void makeRow(boolean newRow) {
+		if (newRow) {
+			row = new SimpleList<>();
+		}
 		float xCoord = 51;
 		int randomIndex = (int) (Math.random() * 11);
 		int strength = (int) (Math.random() * 4) + 2;
 		System.out.println(randomIndex + " " + strength);
 		for (int i = 0; i < 11; i++) {
 			if (i == randomIndex) {
-				row.add(new SimpleNode<Enemy>(new Enemy(strength, new Texture("images/enemy2.png"), xCoord, 490, 40, true, true)));
+				row.add(new SimpleNode<Enemy>(
+						new Enemy(strength, new Texture("images/enemy2.png"), xCoord, 490, 40, true, true)));
 			} else {
-				row.add(new SimpleNode<Enemy>(new Enemy(1, new Texture("images/enemy3.png"), xCoord, 490, 40, false, true)));
+				row.add(new SimpleNode<Enemy>(
+						new Enemy(1, new Texture("images/enemy3.png"), xCoord, 490, 40, false, true)));
 			}
 			xCoord += 65;
 		}
@@ -67,12 +71,6 @@ public class ClassARow implements EnemyRowInterface {
 	}
 
 	@Override
-	public void reformRow() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void moveRow(float deltaTime) {
 		if (row.getLength() > 0) {
 			if (row.find(row.getLength() - 1).getXCoord() < Gdx.graphics.getWidth() - 42
@@ -104,11 +102,5 @@ public class ClassARow implements EnemyRowInterface {
 			row.find(i).setXCoord(firstXCoord);
 			firstXCoord += 65;
 		}
-	}
-
-	@Override
-	public void changeBoss() {
-		// TODO Auto-generated method stub
-		
 	}
 }

@@ -21,19 +21,14 @@ public class Enemy {
 	private boolean isBoss;
 	
 	public Enemy(int endurance, Texture image, float xCoord, float yCoord, float speed, boolean boss, boolean direction) {
-		Texture imageH = image;
 		this.strength = endurance;
 		this.tiempo = 0;
-		TextureRegion[][] temp = TextureRegion.split(imageH, imageH.getWidth() / 2, imageH.getHeight());
-		sprites = new TextureRegion[2];
-		sprites[0] = temp[0][0];
-		sprites[1] = temp[0][1];
-		animation = new Animation<>(1/2f, sprites);
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
 		this.speed = speed;
 		this.isBoss = boss;
 		this.direction = direction;
+		setTexture(image);
 		rectangleCollision = new Rectangle(this.xCoord, this.yCoord, 32, 32);
 		
 	}
@@ -103,6 +98,14 @@ public class Enemy {
 	
 	public void setBoss(boolean boss) {
 		this.isBoss = boss;
+	}
+	
+	public void setTexture(Texture texture) {
+		TextureRegion[][] temp = TextureRegion.split(texture, texture.getWidth() / 2, texture.getHeight());
+		sprites = new TextureRegion[2];
+		sprites[0] = temp[0][0];
+		sprites[1] = temp[0][1];
+		animation = new Animation<>(1/2f, sprites);
 	}
 	
 	public boolean getIsBoss() {

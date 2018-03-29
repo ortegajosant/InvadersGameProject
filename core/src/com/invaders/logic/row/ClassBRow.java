@@ -9,33 +9,36 @@ import com.invaders.game.InvadersLauncher;
 import com.invaders.logic.Bullet;
 import com.invaders.logic.Enemy;
 
-public class ClassBRow implements EnemyRowInterface {
-	
+public class ClassBRow extends AbstractEnemyRow {
+
 	private DoubleList<Enemy> row;
 	private float changeMoveTimer;
-	private final float changeMoveTimerConstant = 1f;
-	
+	private final float changeMoveTimerConstant = 0.7f;
+
 	public ClassBRow() {
-		makeRow();
+		makeRow(true);
 		changeMoveTimer = 0;
 	}
 
 	@Override
-	public void makeRow() {
-		row = new DoubleList<>();
+	public void makeRow(boolean newRow) {
+		if (newRow) {
+			row = new DoubleList<>();
+		}
+
 		float xCoord = 51;
 		int randomIndex = (int) (Math.random() * 11);
 		int strength = (int) (Math.random() * 4) + 2;
-		System.out.println(randomIndex + " " + strength);
 		for (int i = 0; i < 11; i++) {
 			if (i == randomIndex) {
-				row.add(new DoubleNode<Enemy>(new Enemy(strength, new Texture("images/enemy2.png"), xCoord, 490, 40, true, true)));
+				row.add(new DoubleNode<Enemy>(
+						new Enemy(strength, new Texture("images/enemy2.png"), xCoord, 490, 40, true, true)));
 			} else {
-				row.add(new DoubleNode<Enemy>(new Enemy(1, new Texture("images/enemy3.png"), xCoord, 490, 40, false, true)));
+				row.add(new DoubleNode<Enemy>(
+						new Enemy(1, new Texture("images/enemy3.png"), xCoord, 490, 40, false, true)));
 			}
 			xCoord += 65;
 		}
-
 	}
 
 	@Override
@@ -73,12 +76,6 @@ public class ClassBRow implements EnemyRowInterface {
 	}
 
 	@Override
-	public void reformRow() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void moveRow(float deltaTime) {
 		if (row.getLength() > 0) {
 			if (row.find(row.getLength() - 1).getXCoord() < Gdx.graphics.getWidth() - 42
@@ -93,19 +90,16 @@ public class ClassBRow implements EnemyRowInterface {
 			}
 		}
 		changeMoveTimer += deltaTime;
-
 	}
 
 	@Override
 	public void showRow(InvadersLauncher invadersLauncher) {
 		if (row.getLength() > 0) {
-			
 			for (int i = 0; i < row.getLength(); i++) {
 				row.find(i).render(invadersLauncher.batch);
 			}
 			changeBoss();
 		}
-
 	}
 
 	@Override
@@ -116,8 +110,8 @@ public class ClassBRow implements EnemyRowInterface {
 			firstXCoord += 65;
 		}
 	}
-	
-	public DoubleList<Enemy> getRow(){
+
+	public DoubleList<Enemy> getRow() {
 		return row;
 	}
 
@@ -126,7 +120,7 @@ public class ClassBRow implements EnemyRowInterface {
 		if (row.getLength() > 1 && changeMoveTimer > changeMoveTimerConstant) {
 
 			changeMoveTimer = 0;
-			int toReplace = (int)(Math.random() * row.getLength());
+			int toReplace = (int) (Math.random() * row.getLength());
 			int indexBoss = 0;
 			for (int i = 0; i < row.getLength(); i++) {
 				if (row.find(i).getIsBoss()) {
@@ -134,20 +128,18 @@ public class ClassBRow implements EnemyRowInterface {
 					break;
 				}
 			}
-
-			System.out.println(toReplace + " " + indexBoss);
 			float xCoordToReplace = row.find(indexBoss).getXCoord();
 			float xCoordBoss = row.find(toReplace).getXCoord();
 			float yCoordToReplace = row.find(indexBoss).getYCoord();
 			float yCoordBoss = row.find(toReplace).getYCoord();
 			if (toReplace != indexBoss) {
-				DoubleNode<Enemy> tempBoss = new DoubleNode<Enemy>(new Enemy(row.find(indexBoss).getStrength(), 
-						new Texture("images/enemy2.png"), xCoordBoss, yCoordBoss, 40, true, row.find(indexBoss).getDirection()));
+				DoubleNode<Enemy> tempBoss = new DoubleNode<Enemy>(
+						new Enemy(row.find(indexBoss).getStrength(), new Texture("images/enemy2.png"), xCoordBoss,
+								yCoordBoss, 40, true, row.find(indexBoss).getDirection()));
 				DoubleNode<Enemy> tempToReplace = new DoubleNode<Enemy>(new Enemy(1, new Texture("images/enemy3.png"),
 						xCoordToReplace, yCoordToReplace, 40, false, row.find(toReplace).getDirection()));
 				row.replace(tempBoss, toReplace);
 				row.replace(tempToReplace, indexBoss);
-				//sortRow((row.getFirst().getDato().getXCoord()), row.getLength());
 			}
 		}
 	}

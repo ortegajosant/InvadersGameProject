@@ -80,7 +80,7 @@ public class MainMenu extends Window {
 				// Aquí se abre el servidor
 			} else if (arrowLocation == 1) {
 				this.dispose();
-				invadersLauncher.setScreen(new LevelThree(invadersLauncher));
+				invadersLauncher.setScreen(new LevelFour(invadersLauncher));
 			}
 		}
 	}

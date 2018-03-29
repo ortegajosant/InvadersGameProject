@@ -8,17 +8,17 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Nave {
+	private static Nave instance;
 	private float speed;
 	private Animation<TextureRegion> animation;
 	private static TextureRegion[] sprites;
 	private TextureRegion sprite;
 	private float xCoord;
 	private static Texture image;
-	private Rectangle rectangleCollision;
-	
+	private Rectangle rectangleCollision;	
 	private float tiempo;
 	
-	public Nave() {
+	private Nave() {
 		if (image ==  null) {
 			image = new Texture("images/nave.png");
 		}
@@ -31,6 +31,13 @@ public class Nave {
 		this.xCoord = 250;
 		rectangleCollision = new Rectangle(this.xCoord, 30, 32, 32);
 		
+	}
+	
+	public static Nave getInstance() {
+		if (instance == null) {
+			instance = new Nave();
+		}
+		return instance;
 	}
 	
 	/**

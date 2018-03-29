@@ -51,9 +51,10 @@ public class BasicRow implements EnemyRowInterface {
 				for (int j = 0; j < row.getLength(); j++) {
 					if (bullets.find(i).getRectangle().overlaps(row.find(j).getRectangle())) {
 						bullets.find(i).setRemove(true);
+						float xCoord = row.getFirst().getDato().getXCoord();
 						row.remove(row.find(j));
 						if (row.getLength() > 1) {
-							sortRow(row.getFirst().getDato().getXCoord() + 32f, row.getLength());
+							sortRow(xCoord + 32.5f, row.getLength());
 						}
 						break;
 					}

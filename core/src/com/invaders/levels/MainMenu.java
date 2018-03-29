@@ -14,12 +14,10 @@ public class MainMenu extends Window {
 	private static Texture controlButton;
 	private byte arrowLocation = 1;
 	private float yCoordArrow;
-	private KeyObserver keyObserver;
 	private int width;
 
 	public MainMenu(InvadersLauncher invadersLauncher) {
 		super(invadersLauncher);
-
 	}
 
 	@Override
@@ -39,7 +37,6 @@ public class MainMenu extends Window {
 	public void render(float delta) {
 		renderGame();
 		doAction();
-
 	}
 
 	public void renderGame() {
@@ -57,7 +54,6 @@ public class MainMenu extends Window {
 	}
 
 	public void doAction() {
-
 		if (arrowLocation == 1) {
 			if (keyObserver.keyDown()) {
 				this.arrowLocation += 1;

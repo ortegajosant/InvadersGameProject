@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Invaders";
 		config.height = 500;
-		config.width = 500;
+		config.width = 800;
 		new LwjglApplication(new InvadersLauncher(), config);
 		
 		

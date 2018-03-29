@@ -1,4 +1,4 @@
-package com.invaders.game;
+package com.invaders.levels;
 
 import com.badlogic.gdx.Screen;
 import com.invaders.game.InvadersLauncher;

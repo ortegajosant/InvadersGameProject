@@ -1,18 +1,18 @@
 package com.invaders.datastructures;
 
-public class ListaSimple<T> {
-	private NodoSimple<T> first;
+public class SimpleList<T> {
+	private SimpleNode<T> first;
 	private int length;
 
-	public ListaSimple() {
+	public SimpleList() {
 
 	}
 
-	public void add(NodoSimple<T> nodo) {
+	public void add(SimpleNode<T> nodo) {
 		if (isEmpty()) {
 			add(0, nodo);
 		} else {
-			NodoSimple<T> temp = first;
+			SimpleNode<T> temp = first;
 			for (int i = 0; i < length; i++) {
 				if (temp.getNext() == null) {
 					temp.setNext(nodo);
@@ -25,17 +25,17 @@ public class ListaSimple<T> {
 		}
 	}
 
-	public void add(int index, NodoSimple<T> nodo) {
+	public void add(int index, SimpleNode<T> nodo) {
 		if (index == 0) {
 			nodo.setNext(first);
 			first = nodo;
 			length += 1;
 		} else {
-			if (index >= getlength()) {
+			if (index >= getLength()) {
 				throw new IndexOutOfBoundsException("Index out of range");
 			} else {
-				NodoSimple<T> prev = first;
-				NodoSimple<T> temp = first;
+				SimpleNode<T> prev = first;
+				SimpleNode<T> temp = first;
 				int i = 0;
 				while (i <= index) {
 					if (i == index) {
@@ -58,11 +58,11 @@ public class ListaSimple<T> {
 			first = first.getNext();
 			length -= 1;
 		} else {
-			NodoSimple<T> prev = first;
-			NodoSimple<T> temp = first;
+			SimpleNode<T> prev = first;
+			SimpleNode<T> temp = first;
 
 			int i = 0;
-			while (index < getlength()) {
+			while (index < getLength()) {
 				if (i == index) {
 					prev.setNext(temp.getNext());
 					this.length -= 1;
@@ -77,9 +77,9 @@ public class ListaSimple<T> {
 		}
 	}
 
-	public boolean remove(NodoSimple<T> nodo) {
-		NodoSimple<T> prev = first;
-		NodoSimple<T> temp = first;
+	public boolean remove(SimpleNode<T> nodo) {
+		SimpleNode<T> prev = first;
+		SimpleNode<T> temp = first;
 		for (int i = 0; i < length; i++) {
 			if (temp == nodo) {
 				prev.setNext(temp.getNext());
@@ -96,11 +96,11 @@ public class ListaSimple<T> {
 	public void remove(T dato) {
 		if (first.getDato() == dato) {
 			first = first.getNext();
-			this.length -= 1;  
-		
+			this.length -= 1;
+
 		} else {
-			NodoSimple<T> temp = first;
-			NodoSimple<T> prev = first;
+			SimpleNode<T> temp = first;
+			SimpleNode<T> prev = first;
 			for (int i = 0; i < length; i++) {
 				if (temp.getDato() == dato) {
 					prev.setNext(temp.getNext());
@@ -119,13 +119,13 @@ public class ListaSimple<T> {
 
 	}
 
-	public int getlength() {
+	public int getLength() {
 		return length;
 	}
 
 	public void print() {
-		NodoSimple<T> temp = first;
-		for (int i = 0; i < getlength(); i++) {
+		SimpleNode<T> temp = first;
+		for (int i = 0; i < getLength(); i++) {
 			System.out.println(temp.getDato());
 			temp = temp.getNext();
 		}
@@ -137,7 +137,7 @@ public class ListaSimple<T> {
 	}
 
 	public T find(int index) {
-		NodoSimple<T> temp = first;
+		SimpleNode<T> temp = first;
 		for (int i = 0; i <= index; i++) {
 			if (i == index) {
 				return temp.getDato();
@@ -145,5 +145,9 @@ public class ListaSimple<T> {
 			temp = temp.getNext();
 		}
 		return null;
+	}
+
+	public SimpleNode<T> getFirst() {
+		return first;
 	}
 }

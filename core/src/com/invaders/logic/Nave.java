@@ -44,6 +44,18 @@ public class Nave {
 		batch.draw(sprite, this.xCoord, 30);
 	}
 	
+	public void changePosition(boolean doMotion, float delta) {
+		if (doMotion) {
+			if (this.getXCoord() < Gdx.graphics.getWidth() - this.getSprite().getRegionWidth()) {
+				this.setXCoord(this.getXCoord() + (this.getSpeed() * delta));
+			}
+		} else {
+			if (this.getXCoord() > 0) {
+				this.setXCoord(this.getXCoord() - (this.getSpeed() * delta));
+			}
+		}
+	}
+	
 	public TextureRegion getSprite() {
 		return this.sprite;
 	}

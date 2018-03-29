@@ -8,20 +8,20 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Enemy {
-	private int resistencia;
+	private int endurance;
 	private Animation<TextureRegion> animation;
 	private TextureRegion[] sprites;
 	private float tiempo;
 	TextureRegion frame;
 	private float xCoord;
 	private float yCoord;
-	private float speed = 30;
+	private float speed;
 	private boolean direction = true;
 	private Rectangle rectangleCollision;
 	
-	public Enemy(int resistencia, Texture image, float xCoord, float yCoord) {
+	public Enemy(int endurance, Texture image, float xCoord, float yCoord, float speed) {
 		Texture imageH = image;
-		this.resistencia = resistencia;
+		this.endurance = endurance;
 		this.tiempo = 0;
 		TextureRegion[][] temp = TextureRegion.split(imageH, imageH.getWidth() / 2, imageH.getHeight());
 		sprites = new TextureRegion[2];
@@ -30,6 +30,7 @@ public class Enemy {
 		animation = new Animation<>(1/2f, sprites);
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
+		this.speed = speed;
 		rectangleCollision = new Rectangle(this.xCoord, this.yCoord, 32, 32);
 		
 	}
@@ -59,6 +60,13 @@ public class Enemy {
 		}
 	}
 	
+	public void setXCoord(float xCoord) {
+		this.xCoord = xCoord;
+	}
+	
+	public void setYCoord(float yCoord) {
+		this.yCoord = yCoord;
+	}
 	
 	public float getXCoord() {
 		return xCoord;
@@ -76,5 +84,9 @@ public class Enemy {
 	public float getYCoord() {
 		// TODO Auto-generated method stub
 		return this.yCoord;
+	}
+	
+	public int getEndurance() {
+		return this.endurance;
 	}
 }

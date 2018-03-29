@@ -48,4 +48,10 @@ public class ClassCRow implements EnemyRowInterface {
 		
 	}
 
+	@Override
+	public void changeBoss() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

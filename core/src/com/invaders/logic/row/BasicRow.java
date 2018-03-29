@@ -36,7 +36,7 @@ public class BasicRow implements EnemyRowInterface {
 		row = new SimpleList<>();
 		float xCoord = 51;
 		for (int i = 0; i < 11; i++) {
-			row.add(new SimpleNode<Enemy>(new Enemy(0, new Texture("images/enemy3.png"), xCoord, 490, 30)));
+			row.add(new SimpleNode<Enemy>(new Enemy(0, new Texture("images/enemy3.png"), xCoord, 490, 30, false, true)));
 			xCoord += 65;
 		}
 	}
@@ -79,7 +79,7 @@ public class BasicRow implements EnemyRowInterface {
 	public void reformRow() {
 		float xCoord = 51;
 		for (int i = 0; i < 11; i++) {
-			row.add(new SimpleNode<Enemy>(new Enemy(0, new Texture("images/enemy3.png"), xCoord, 490, 30)));
+			row.add(new SimpleNode<Enemy>(new Enemy(1, new Texture("images/enemy3.png"), xCoord, 490, 30, false, true)));
 			xCoord += 65;
 		}
 	}
@@ -113,6 +113,12 @@ public class BasicRow implements EnemyRowInterface {
 			}
 		}
 
+	}
+
+	@Override
+	public void changeBoss() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

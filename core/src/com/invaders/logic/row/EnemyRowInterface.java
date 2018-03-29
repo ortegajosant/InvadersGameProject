@@ -19,5 +19,7 @@ public interface EnemyRowInterface {
 	public void moveRow(float deltaTime);
 
 	public void showRow(InvadersLauncher invaderslauncher);
+	
+	public void changeBoss();
 
 }

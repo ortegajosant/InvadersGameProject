@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Enemy {
-	private int endurance;
+	private int strength;
 	private Animation<TextureRegion> animation;
 	private TextureRegion[] sprites;
 	private float tiempo;
@@ -16,12 +16,13 @@ public class Enemy {
 	private float xCoord;
 	private float yCoord;
 	private float speed;
-	private boolean direction = true;
+	private boolean direction;
 	private Rectangle rectangleCollision;
+	private boolean isBoss;
 	
-	public Enemy(int endurance, Texture image, float xCoord, float yCoord, float speed) {
+	public Enemy(int endurance, Texture image, float xCoord, float yCoord, float speed, boolean boss, boolean direction) {
 		Texture imageH = image;
-		this.endurance = endurance;
+		this.strength = endurance;
 		this.tiempo = 0;
 		TextureRegion[][] temp = TextureRegion.split(imageH, imageH.getWidth() / 2, imageH.getHeight());
 		sprites = new TextureRegion[2];
@@ -31,6 +32,8 @@ public class Enemy {
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
 		this.speed = speed;
+		this.isBoss = boss;
+		this.direction = direction;
 		rectangleCollision = new Rectangle(this.xCoord, this.yCoord, 32, 32);
 		
 	}
@@ -86,7 +89,26 @@ public class Enemy {
 		return this.yCoord;
 	}
 	
-	public int getEndurance() {
-		return this.endurance;
+	public int getStrength() {
+		return this.strength;
+	}
+
+	public void reduceStrength() {
+		this.strength--;
+	}
+	
+	public void setStrength(int i) {
+		this.strength = i;
+	}
+	
+	public void setBoss(boolean boss) {
+		this.isBoss = boss;
+	}
+	
+	public boolean getIsBoss() {
+		return this.isBoss;
+	}
+	public boolean getDirection() {
+		return this.direction;
 	}
 }

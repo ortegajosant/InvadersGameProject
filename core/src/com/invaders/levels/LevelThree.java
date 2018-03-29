@@ -2,16 +2,16 @@ package com.invaders.levels;
 
 import com.invaders.game.InvadersLauncher;
 
-public class LevelOne extends Window {
+public class LevelThree extends Window {
 
-	public LevelOne(InvadersLauncher invadersLauncher) {
+	public LevelThree(InvadersLauncher invadersLauncher) {
 		super(invadersLauncher);
 	}
-
+	
 	@Override
 	public void show() {
 		super.show();
-		enemiesRow = factory.createEnemyRow(1, "basic");
+		enemiesRow = factory.createEnemyRow(3, "b");
 	}
 
 	@Override

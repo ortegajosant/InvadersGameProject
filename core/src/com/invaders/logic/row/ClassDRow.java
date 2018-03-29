@@ -47,4 +47,10 @@ public class ClassDRow implements EnemyRowInterface{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void changeBoss() {
+		// TODO Auto-generated method stub
+		
+	}
 }

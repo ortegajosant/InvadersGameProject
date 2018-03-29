@@ -8,6 +8,22 @@ public class DoubleList<T> {
 
 	}
 
+	public DoubleNode<T> getNode(int index) {
+		int i = 0;
+		DoubleNode<T> temp = first;
+		while (index < length) {
+			if (i == index) {
+				return temp;
+			} else if (i < index){
+				temp = temp.getNext();
+				i++;
+			}
+			break;
+			
+		}
+		return null;
+	}
+
 	public void add(DoubleNode<T> nodo) {
 		if (isEmpty()) {
 			addFirst(nodo);
@@ -121,18 +137,95 @@ public class DoubleList<T> {
 		}
 	}
 
+	public void replace(DoubleNode<T> nodo, int index) {
+		if (index == 0) {
+			if (isEmpty()) {
+				addFirst(nodo);
+			} else {
+				nodo.setNext(first.getNext());
+				first.getNext().setPrevious(nodo);
+				first = nodo;
+			}
+		} else {
+			if (index >= length) {
+				throw new IndexOutOfBoundsException("Index out of range");
+			} else {
+				DoubleNode<T> prev = first;
+				DoubleNode<T> temp = first;
+				int i = 0;
+				while (i <= index) {
+					if (i == index && i < length - 1) {
+						prev.setNext(nodo);
+						nodo.setPrevious(prev);
+						nodo.setNext(temp.getNext());
+						temp.getNext().setPrevious(nodo);
+						break;
+					} else if (i == index){
+						nodo.setNext(temp.getNext());
+						nodo.setPrevious(prev);
+						prev.setNext(nodo);
+						break;
+					} else if (i < index) {
+						prev = temp;
+						temp = temp.getNext();
+						i += 1;
+					} else {
+						break;
+					}
+				}
+			}
+		}
+	}
+
 	public void erase() {
 		this.first = null;
 		this.length = 0;
 	}
 
 	public int getLength() {
-		// TODO Auto-generated method stub
 		return this.length;
 	}
 
 	public T find(int index) {
-		// TODO Auto-generated method stub
+		DoubleNode<T> temp = first;
+		if (index < length) {
+			for (int i = 0; i <= index; i++) {
+				if (i == index) {
+					return temp.getDato();
+				}
+				temp = temp.getNext();
+			}
+		}
 		return null;
+	}
+
+	public DoubleNode<T> getFirst() {
+		// TODO Auto-generated method stub
+		return first;
+	}
+
+	public void remove(T dato) {
+		if (dato == first.getDato()) {
+			first = first.getNext();
+			first.setPrevious(null);
+			length -= 1;
+		} else {
+			DoubleNode<T> prev = first;
+			DoubleNode<T> temp = first;
+			for (int i = 0; i < length; i++) {
+				if (dato == temp.getDato() && i < length - 1) {
+					temp.getNext().setPrevious(prev);
+					prev.setNext(temp.getNext());
+					length -= 1;
+					break;
+				} else if (dato == temp.getDato()) {
+					prev.setNext(temp.getNext());
+					length -= 1;
+					break;
+				}
+				prev = temp;
+				temp = temp.getNext();
+			}
+		}
 	}
 }

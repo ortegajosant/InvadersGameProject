@@ -175,14 +175,6 @@ public class CircularList<T> {
 
 	}
 
-	public void print() {
-		SimpleNode<T> temp = last;
-		for (int i = 0; i < length; i++) {
-			System.out.println(temp.getDato());
-			temp = temp.getNext();
-		}
-	}
-
 	public int getLength() {
 		return length;
 	}

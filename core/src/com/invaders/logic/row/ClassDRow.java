@@ -142,13 +142,12 @@ public class ClassDRow extends AbstractEnemyRow {
 
 					} else {
 						row.replace(j + 1,
-								new SimpleNode<Enemy>(new Enemy(strengthCurrent, new Texture("images/enemy1.png"),
+								new SimpleNode<Enemy>(new Enemy(strengthCurrent, new Texture("images/enemy3.png"),
 										xCoordNext, yCoordNext, 60, false, directionCurrent)));
 
 						row.replace(j, new SimpleNode<Enemy>(new Enemy(strengthNext, new Texture("images/enemy1.png"),
 								xCoordCurrent, yCoordCurrent, 60, false, directionNext)));
 					}
-
 				}
 			}
 		}

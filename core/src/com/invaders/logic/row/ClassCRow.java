@@ -112,7 +112,7 @@ public class ClassCRow extends AbstractEnemyRow {
 			deleteRow();
 		}
 	}
-	
+
 	public void deleteRow() {
 		row.erase();
 	}

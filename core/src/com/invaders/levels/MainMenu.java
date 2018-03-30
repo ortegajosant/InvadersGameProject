@@ -73,6 +73,7 @@ public class MainMenu extends Window {
 				this.yCoordArrow += 75;
 			}
 		}
+		
 		if (keyObserver.keyEnter()) {
 			if (arrowLocation == 3) {
 				Gdx.app.exit();
@@ -80,7 +81,7 @@ public class MainMenu extends Window {
 				// Aquí se abre el servidor
 			} else if (arrowLocation == 1) {
 				this.dispose();
-				invadersLauncher.setScreen(new LevelFour(invadersLauncher));
+				invadersLauncher.setScreen(new LevelFive(invadersLauncher));
 			}
 		}
 	}

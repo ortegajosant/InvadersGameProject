@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.invaders.datastructures.SimpleList;
 import com.invaders.datastructures.SimpleNode;
 import com.invaders.game.InvadersLauncher;
+import com.invaders.levels.MainMenu;
+import com.invaders.levels.Window;
 import com.invaders.logic.Bullet;
 import com.invaders.logic.Enemy;
 
@@ -77,7 +79,6 @@ public class BasicRow extends AbstractEnemyRow {
 				row.find(i).render(invadersLauncher.batch);
 			}
 		}
-
 	}
 
 	public SimpleList<Enemy> getRow() {
@@ -100,7 +101,14 @@ public class BasicRow extends AbstractEnemyRow {
 		}
 
 	}
+
 	public boolean isRowEmpty() {
 		return row.isEmpty();
+	}
+
+	public void rowWin(Window currentWindow) {
+		if (row.getFirst().getDato().getYCoord() < 0) {
+			currentWindow.finishGame(currentWindow);
+		}
 	}
 }

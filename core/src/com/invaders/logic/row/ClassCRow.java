@@ -6,6 +6,7 @@ import com.invaders.datastructures.CircularList;
 import com.invaders.datastructures.SimpleList;
 import com.invaders.datastructures.SimpleNode;
 import com.invaders.game.InvadersLauncher;
+import com.invaders.levels.Window;
 import com.invaders.logic.Bullet;
 import com.invaders.logic.Enemy;
 
@@ -124,5 +125,12 @@ public class ClassCRow extends AbstractEnemyRow {
 
 	public boolean isRowEmpty() {
 		return row.isEmpty();
+	}
+	
+	@Override
+	public void rowWin(Window currentWindow) {
+		if (row.getLast().getDato().getYCoord() < 0) {
+			currentWindow.finishGame(currentWindow);
+		}
 	}
 }

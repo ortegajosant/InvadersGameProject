@@ -1,48 +1,41 @@
 package com.invaders.levels;
 
+import com.badlogic.gdx.Gdx;
 import com.invaders.game.InvadersLauncher;
 
 public class LevelOne extends Window {
 
-	private int rowNumber;
-
 	public LevelOne(InvadersLauncher invadersLauncher) {
 		super(invadersLauncher);
-		this.rowNumber = 4;
+		rowList = new String[]{"Basic", "Class A"};
+		rowNumber = 6;
+		int index = (int) (Math.random() * rowList.length);
+		lastRow = rowList[index];
+		index = (int) (Math.random() * rowList.length);
+		newRow = rowList[index];
+		levelNumber = 1;
 	}
 
 	@Override
 	public void show() {
 		super.show();
-		enemiesRow = factory.createEnemyRow(1, "Basic");
-		levelNumber = 1;
-		newRow = "Basic";
+		enemiesRow = factory.createEnemyRow(2, lastRow);
+		enemyMovement =  Gdx.audio.newSound(Gdx.files.internal("music/fastinvader1.ogg"));
+		super.scoreGame = 0;
 	}
 
 	@Override
 	public void render(float delta) {
 		super.renderGame();
 		super.doAction();
-		nextRow();
+		nextRow(1);
 		
-	}
-
-	public void nextRow() {
-		if (rowNumber != 0) {
-			if (enemiesRow.isRowEmpty()) {
-				this.rowNumber--;
-				enemiesRow.makeRow(false);
-			}
-		} else {
-			nextLevel();
-		}
 	}
 	
 	@Override
 	public void nextLevel() {
 		this.dispose();
 		invadersLauncher.setScreen(new LevelTwo(invadersLauncher));
-		
 	}
 
 }

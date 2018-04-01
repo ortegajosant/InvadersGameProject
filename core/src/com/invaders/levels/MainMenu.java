@@ -1,9 +1,14 @@
 package com.invaders.levels;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.invaders.datastructures.SimpleList;
+import com.invaders.datastructures.SimpleNode;
 import com.invaders.game.InvadersLauncher;
+import com.invaders.logic.Enemy;
 import com.invaders.logic.KeyObserver;
 
 public class MainMenu extends Window {
@@ -15,6 +20,10 @@ public class MainMenu extends Window {
 	private byte arrowLocation = 1;
 	private float yCoordArrow;
 	private int width;
+	private static Music mainTheme;
+	private static Sound navigateSound;
+	private float enemiesSpawnTimer = 0;
+	private SimpleList<Enemy> enemies;
 
 	public MainMenu(InvadersLauncher invadersLauncher) {
 		super(invadersLauncher);
@@ -28,10 +37,18 @@ public class MainMenu extends Window {
 			exitButton = new Texture("images/exit.png");
 			arrowImage = new Texture("images/playLogo.png");
 			controlButton = new Texture("images/control.png");
-			keyObserver = KeyObserver.getObserverInstance();
-			this.yCoordArrow = 200;
-			this.width = Gdx.graphics.getWidth();
+			
+			
 		}
+		keyObserver = KeyObserver.getObserverInstance();
+		this.yCoordArrow = 200;
+		this.width = Gdx.graphics.getWidth();
+		if (mainTheme == null) {
+			mainTheme = Gdx.audio.newMusic(Gdx.files.internal("music/mainMenuThemeMoskau.ogg"));
+			navigateSound = Gdx.audio.newSound(Gdx.files.internal("music/navigateMenu.ogg"));
+			
+		}
+		mainTheme.play();
 	}
 
 	public void render(float delta) {
@@ -56,19 +73,23 @@ public class MainMenu extends Window {
 	public void doAction() {
 		if (arrowLocation == 1) {
 			if (keyObserver.keyDown()) {
+				navigateSound.play();
 				this.arrowLocation += 1;
 				this.yCoordArrow -= 75;
 			}
 		} else if (arrowLocation == 2) {
 			if (keyObserver.keyUp()) {
+				navigateSound.play();
 				this.arrowLocation -= 1;
 				this.yCoordArrow += 75;
 			} else if (keyObserver.keyDown()) {
+				navigateSound.play();
 				this.arrowLocation += 1;
 				this.yCoordArrow -= 75;
 			}
 		} else if (this.arrowLocation == 3) {
 			if (keyObserver.keyUp()) {
+				navigateSound.play();
 				this.arrowLocation -= 1;
 				this.yCoordArrow += 75;
 			}
@@ -84,11 +105,21 @@ public class MainMenu extends Window {
 			}
 		}
 	}
-
+	
+//	public void spawnEnemies() {
+//		if (enemiesSpawnTimer > 1.6f) {
+//			float yCoord = Math.random() * (Gdx.graphics.getHeight() - 42);
+//			enemies.add(new SimpleNode<Enemy>(new Enemy()));
+//		}
+//	}
+	
 	@Override
 	public void nextLevel() {
 		this.dispose();
+		mainTheme.stop();
+		mainTheme.dispose();
 		invadersLauncher.setScreen(new LevelOne(invadersLauncher));
 	}
-
+	
+	
 }

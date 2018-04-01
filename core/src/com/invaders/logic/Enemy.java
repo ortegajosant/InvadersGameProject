@@ -54,7 +54,7 @@ public class Enemy {
 			} else {
 				xCoord -= (this.speed + 1) * deltatime;
 			}
-			this.yCoord -= 1000 * deltatime;
+			this.yCoord -= 750 * deltatime;
 			this.direction = !direction;
 		}
 	}

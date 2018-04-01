@@ -2,6 +2,7 @@ package com.invaders.logic.row;
 
 import com.invaders.datastructures.SimpleList;
 import com.invaders.game.InvadersLauncher;
+import com.invaders.levels.Window;
 import com.invaders.logic.Bullet;
 
 public abstract class AbstractEnemyRow {
@@ -34,5 +35,9 @@ public abstract class AbstractEnemyRow {
 	}
 	
 	public abstract boolean isRowEmpty();
+	
+	public void rowWin(Window currentWindow) {
+		
+	}
 
 }

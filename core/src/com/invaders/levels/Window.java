@@ -2,6 +2,7 @@ package com.invaders.levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -27,7 +28,14 @@ public abstract class Window implements Screen {
 	private static BitmapFont levelName;
 	protected int levelNumber;
 	private static ShapeRenderer shape;
-	private static int scoreGame;
+	protected static int scoreGame;
+	protected static Sound bulletSound;
+	protected static Sound enemyDead;
+	protected static Sound enemyMovement;
+	private float movementTime;
+	private float gunActivation;
+	protected static Sound levelUpSound;
+
 
 	public Window(InvadersLauncher invadersLauncher) {
 		this.invadersLauncher = invadersLauncher;
@@ -43,6 +51,14 @@ public abstract class Window implements Screen {
 		levelName = new BitmapFont(Gdx.files.internal("font/mercutio_basic.fnt"),
 				Gdx.files.internal("font/mercutio_basic_0.png"), false);
 		shape = new ShapeRenderer();
+		if (bulletSound == null) {
+			bulletSound = Gdx.audio.newSound(Gdx.files.internal("music/shoot.ogg"));
+			enemyDead =  Gdx.audio.newSound(Gdx.files.internal("music/invaderKilled.ogg"));
+			levelUpSound = Gdx.audio.newSound(Gdx.files.internal("music/levelUp.ogg"));
+		}
+		levelUpSound.play();
+		movementTime = 0;
+		gunActivation= 0;
 	}
 
 	@Override
@@ -54,6 +70,7 @@ public abstract class Window implements Screen {
 	 */
 	public void doAction() {
 		float delta = Gdx.graphics.getDeltaTime();
+		gunActivation += delta;
 		// MOVIMIENTOS DE LA NAVE
 		// Movimiento hacia la derecha
 		if (keyObserver.keyRight()) {
@@ -66,20 +83,37 @@ public abstract class Window implements Screen {
 		}
 
 		// Disparos
-		else if (keyObserver.keySpace()) {
+		if (keyObserver.keySpace() && gunActivation > 1.2f) {
+			bulletSound.play();
 			bullets.addBullet(player);
+			gunActivation = 0;
+		}
+		
+		else if (keyObserver.keyEnter()) {
+			pause();
 		}
 
 		bullets.shotBullet(delta);
+		int lastScore = scoreGame;
 		scoreGame += enemiesRow.deleteEnemy(bullets.getBullets());
+		if (scoreGame != lastScore) {
+			enemyDead.play();
+		}
 		enemiesRow.moveRow(delta);
+		movementTime += delta;
+		if (0.5f < movementTime) {
+			enemyMovement.play();
+			movementTime = 0;
+		}		
+		if (!enemiesRow.isRowEmpty()) {
+			enemiesRow.rowWin(this);
+		}
 	}
 
 	public void renderGame() {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		shape.begin(ShapeType.Filled);
-		shape.setColor(1, 1, 1, 0);
 		shape.rect(15, Gdx.graphics.getHeight() - 38, 100, 30);
 		shape.rect(Gdx.graphics.getWidth()/2 - 115,  Gdx.graphics.getHeight() - 38, 230, 30);
 		shape.rect(Gdx.graphics.getWidth() - 210, Gdx.graphics.getHeight() - 38, 190, 30);
@@ -116,6 +150,14 @@ public abstract class Window implements Screen {
 	}
 
 	public abstract void nextLevel();
+	
+	public void finishGame(Window currentWindow) {
+		currentWindow.dispose();
+		bulletSound.dispose();
+		enemyDead.dispose();
+		enemyMovement.dispose();
+		invadersLauncher.setScreen(new MainMenu(invadersLauncher));
+	}
 
 	@Override
 	public void resize(int width, int height) {
@@ -124,7 +166,7 @@ public abstract class Window implements Screen {
 
 	@Override
 	public void pause() {
-
+		
 	}
 
 	@Override
@@ -134,12 +176,16 @@ public abstract class Window implements Screen {
 
 	@Override
 	public void hide() {
-
+		this.dispose();
 	}
 
 	@Override
 	public void dispose() {
 
+	}
+	
+	public int getScoreGame () {
+		return scoreGame;
 	}
 
 }

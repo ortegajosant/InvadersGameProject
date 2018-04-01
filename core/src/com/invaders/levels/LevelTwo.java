@@ -1,13 +1,14 @@
 package com.invaders.levels;
 
+import com.badlogic.gdx.Gdx;
 import com.invaders.game.InvadersLauncher;
 
 public class LevelTwo extends Window {
 
 	public LevelTwo(InvadersLauncher invadersLauncher) {
 		super(invadersLauncher);
-		rowList = new String[]{"Basic", "Class A"};
-		rowNumber = 6;
+		rowList = new String[]{"Basic", "Class A", "Class B"};
+		rowNumber = 8;
 		int index = (int) (Math.random() * rowList.length);
 		lastRow = rowList[index];
 		index = (int) (Math.random() * rowList.length);
@@ -19,6 +20,7 @@ public class LevelTwo extends Window {
 	public void show() {
 		super.show();
 		enemiesRow = factory.createEnemyRow(2, lastRow);
+		enemyMovement = Gdx.audio.newSound(Gdx.files.internal("music/fastinvader2.ogg"));
 	}
 
 	@Override

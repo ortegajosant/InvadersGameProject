@@ -12,7 +12,8 @@ public class BasicRow extends AbstractEnemyRow {
 
 	private SimpleList<Enemy> row;
 
-	public BasicRow() {
+	public BasicRow(int speed) {
+		super.speed = speed;
 		makeRow(true);
 	}
 
@@ -39,7 +40,7 @@ public class BasicRow extends AbstractEnemyRow {
 		float xCoord = 51;
 		for (int i = 0; i < 11; i++) {
 			row.add(new SimpleNode<Enemy>(
-					new Enemy(0, new Texture("images/enemy3.png"), xCoord, 490, 30, false, true)));
+					new Enemy(0, new Texture("images/enemy3.png"), xCoord, 420, super.speed, false, true, 20)));
 			xCoord += 65;
 		}
 	}
@@ -48,13 +49,15 @@ public class BasicRow extends AbstractEnemyRow {
 	/**
 	 * Elimina enemigos de la hilera y del mapa
 	 */
-	public void deleteEnemy(SimpleList<Bullet> bullets) {
+	public int deleteEnemy(SimpleList<Bullet> bullets) {
+		int score = 0;
 		if (bullets.getLength() > 0 && row.getLength() > 0) {
 			for (int i = 0; i < bullets.getLength(); i++) {
 				for (int j = 0; j < row.getLength(); j++) {
 					if (bullets.find(i).getRectangle().overlaps(row.find(j).getRectangle())) {
 						bullets.find(i).setRemove(true);
 						float xCoord = row.getFirst().getDato().getXCoord();
+						score = row.find(j).getScore();
 						row.remove(row.find(j));
 						if (row.getLength() > 1) {
 							sortRow(xCoord + 32.5f, row.getLength());
@@ -64,6 +67,7 @@ public class BasicRow extends AbstractEnemyRow {
 				}
 			}
 		}
+		return score;
 	}
 
 	@Override
@@ -95,5 +99,8 @@ public class BasicRow extends AbstractEnemyRow {
 			}
 		}
 
+	}
+	public boolean isRowEmpty() {
+		return row.isEmpty();
 	}
 }

@@ -12,7 +12,9 @@ public class ClassARow extends AbstractEnemyRow {
 
 	private SimpleList<Enemy> row;
 
-	public ClassARow() {
+	public ClassARow(int speed) {
+
+		this.speed = speed;
 		makeRow(true);
 	}
 
@@ -28,17 +30,18 @@ public class ClassARow extends AbstractEnemyRow {
 		for (int i = 0; i < 11; i++) {
 			if (i == randomIndex) {
 				row.add(new SimpleNode<Enemy>(
-						new Enemy(strength, new Texture("images/enemy2.png"), xCoord, 490, 40, true, true)));
+						new Enemy(strength, new Texture("images/enemy2.png"), xCoord, 420, this.speed, true, true, 30)));
 			} else {
 				row.add(new SimpleNode<Enemy>(
-						new Enemy(1, new Texture("images/enemy3.png"), xCoord, 490, 40, false, true)));
+						new Enemy(1, new Texture("images/enemy3.png"), xCoord, 420, speed, false, true, 15)));
 			}
 			xCoord += 65;
 		}
 	}
 
 	@Override
-	public void deleteEnemy(SimpleList<Bullet> bullets) {
+	public int deleteEnemy(SimpleList<Bullet> bullets) {
+		int score = 0;
 		if (bullets.getLength() > 0 && row.getLength() > 0) {
 			for (int i = 0; i < bullets.getLength(); i++) {
 				for (int j = 0; j < row.getLength(); j++) {
@@ -49,8 +52,10 @@ public class ClassARow extends AbstractEnemyRow {
 						temp.reduceStrength();
 						if (temp.getStrength() == 0) {
 							if (temp.getIsBoss()) {
+								score = temp.getScore();
 								deleteRow();
 							} else {
+								score = temp.getScore();
 								row.remove(temp);
 							}
 							if (row.getLength() > 1) {
@@ -63,6 +68,7 @@ public class ClassARow extends AbstractEnemyRow {
 				}
 			}
 		}
+		return score;
 	}
 
 	@Override
@@ -102,5 +108,9 @@ public class ClassARow extends AbstractEnemyRow {
 			row.find(i).setXCoord(firstXCoord);
 			firstXCoord += 65;
 		}
+	}
+	
+	public boolean isRowEmpty() {
+		return row.isEmpty();
 	}
 }

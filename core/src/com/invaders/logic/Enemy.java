@@ -19,8 +19,9 @@ public class Enemy {
 	private boolean direction;
 	private Rectangle rectangleCollision;
 	private boolean isBoss;
+	private int score;
 	
-	public Enemy(int endurance, Texture image, float xCoord, float yCoord, float speed, boolean boss, boolean direction) {
+	public Enemy(int endurance, Texture image, float xCoord, float yCoord, float speed, boolean boss, boolean direction, int score) {
 		this.strength = endurance;
 		this.tiempo = 0;
 		this.xCoord = xCoord;
@@ -30,7 +31,7 @@ public class Enemy {
 		this.direction = direction;
 		setTexture(image);
 		rectangleCollision = new Rectangle(this.xCoord, this.yCoord, 32, 32);
-		
+		this.score = score;
 	}
 	
 	public void render(final SpriteBatch batch) {
@@ -53,7 +54,7 @@ public class Enemy {
 			} else {
 				xCoord -= (this.speed + 1) * deltatime;
 			}
-			this.yCoord -= 500 * deltatime;
+			this.yCoord -= 1000 * deltatime;
 			this.direction = !direction;
 		}
 	}
@@ -113,5 +114,9 @@ public class Enemy {
 	}
 	public boolean getDirection() {
 		return this.direction;
+	}
+	
+	public int getScore() {
+		return this.score;
 	}
 }

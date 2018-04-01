@@ -12,7 +12,8 @@ import com.invaders.logic.Enemy;
 public class ClassCRow extends AbstractEnemyRow {
 	private CircularList<Enemy> row;
 
-	public ClassCRow() {
+	public ClassCRow(int speed) {
+		this.speed = speed;
 		makeRow(true);
 	}
 
@@ -28,17 +29,18 @@ public class ClassCRow extends AbstractEnemyRow {
 		for (int i = 0; i < 11; i++) {
 			if (i == randomIndex) {
 				row.add(new SimpleNode<Enemy>(
-						new Enemy(strength, new Texture("images/enemy2.png"), xCoord, 490, 50, true, true)));
+						new Enemy(strength, new Texture("images/enemy2.png"), xCoord, 420, speed, true, true, 50)));
 			} else {
 				row.add(new SimpleNode<Enemy>(
-						new Enemy(1, new Texture("images/enemy3.png"), xCoord, 490, 50, false, true)));
+						new Enemy(1, new Texture("images/enemy3.png"), xCoord, 420, speed, false, true, 20)));
 			}
 			xCoord += 65;
 		}
 	}
 
 	@Override
-	public void deleteEnemy(SimpleList<Bullet> bullets) {
+	public int deleteEnemy(SimpleList<Bullet> bullets) {
+		int score = 0;
 		if (bullets.getLength() > 0 && row.getLength() > 0) {
 			for (int i = 0; i < bullets.getLength(); i++) {
 				for (int j = 0; j < row.getLength(); j++) {
@@ -49,8 +51,10 @@ public class ClassCRow extends AbstractEnemyRow {
 						temp.reduceStrength();
 						if (temp.getStrength() == 0) {
 							if (temp.getIsBoss()) {
+								score = temp.getScore();
 								changeBoss(temp);
 							} else {
+								score = temp.getScore();
 								row.remove(temp);
 							}
 							if (row.getLength() > 1) {
@@ -62,6 +66,7 @@ public class ClassCRow extends AbstractEnemyRow {
 				}
 			}
 		}
+		return score;
 	}
 
 	@Override
@@ -107,7 +112,7 @@ public class ClassCRow extends AbstractEnemyRow {
 			boolean direction = row.find(indexNewBoss).getDirection();
 			int strength = (int) ((Math.random() * 4) + 2);
 			row.replace(indexNewBoss, new SimpleNode<Enemy>(new Enemy(strength, new Texture("images/enemy2.png"),
-					xCoordNewBoss, yCoordNewBoss, 50, true, direction)));
+					xCoordNewBoss, yCoordNewBoss, speed, true, direction, 50)));
 		} else {
 			deleteRow();
 		}
@@ -117,4 +122,7 @@ public class ClassCRow extends AbstractEnemyRow {
 		row.erase();
 	}
 
+	public boolean isRowEmpty() {
+		return row.isEmpty();
+	}
 }

@@ -15,9 +15,10 @@ public class ClassBRow extends AbstractEnemyRow {
 	private float changeMoveTimer;
 	private final float changeMoveTimerConstant = 0.7f;
 
-	public ClassBRow() {
+	public ClassBRow(int speed) {
+		this.speed = speed;
 		makeRow(true);
-		changeMoveTimer = 0;
+		changeMoveTimer = 0;	
 	}
 
 	@Override
@@ -32,17 +33,18 @@ public class ClassBRow extends AbstractEnemyRow {
 		for (int i = 0; i < 11; i++) {
 			if (i == randomIndex) {
 				row.add(new DoubleNode<Enemy>(
-						new Enemy(strength, new Texture("images/enemy2.png"), xCoord, 490, 40, true, true)));
+						new Enemy(strength, new Texture("images/enemy2.png"), xCoord, 420, speed, true, true, 40)));
 			} else {
 				row.add(new DoubleNode<Enemy>(
-						new Enemy(1, new Texture("images/enemy3.png"), xCoord, 490, 40, false, true)));
+						new Enemy(1, new Texture("images/enemy3.png"), xCoord, 420, speed, false, true, 15)));
 			}
 			xCoord += 65;
 		}
 	}
 
 	@Override
-	public void deleteEnemy(SimpleList<Bullet> bullets) {
+	public int deleteEnemy(SimpleList<Bullet> bullets) {
+		int score = 0;
 		if (bullets.getLength() > 0 && row.getLength() > 0) {
 			for (int i = 0; i < bullets.getLength(); i++) {
 				for (int j = 0; j < row.getLength(); j++) {
@@ -53,8 +55,10 @@ public class ClassBRow extends AbstractEnemyRow {
 						temp.reduceStrength();
 						if (temp.getStrength() == 0) {
 							if (temp.getIsBoss()) {
+								score = temp.getScore();
 								deleteRow();
 							} else {
+								score = temp.getScore();
 								row.remove(temp);
 							}
 							if (row.getLength() > 1) {
@@ -67,6 +71,7 @@ public class ClassBRow extends AbstractEnemyRow {
 				}
 			}
 		}
+		return score;
 	}
 
 	@Override
@@ -118,7 +123,6 @@ public class ClassBRow extends AbstractEnemyRow {
 	@Override
 	public void changeBoss() {
 		if (row.getLength() > 1 && changeMoveTimer > changeMoveTimerConstant) {
-
 			changeMoveTimer = 0;
 			int toReplace = (int) (Math.random() * row.getLength());
 			int indexBoss = 0;
@@ -135,13 +139,17 @@ public class ClassBRow extends AbstractEnemyRow {
 			if (toReplace != indexBoss) {
 				DoubleNode<Enemy> tempBoss = new DoubleNode<Enemy>(
 						new Enemy(row.find(indexBoss).getStrength(), new Texture("images/enemy2.png"), xCoordBoss,
-								yCoordBoss, 40, true, row.find(indexBoss).getDirection()));
+								yCoordBoss, speed, true, row.find(indexBoss).getDirection(), 40));
 				DoubleNode<Enemy> tempToReplace = new DoubleNode<Enemy>(new Enemy(1, new Texture("images/enemy3.png"),
-						xCoordToReplace, yCoordToReplace, 40, false, row.find(toReplace).getDirection()));
+						xCoordToReplace, yCoordToReplace, speed, false, row.find(toReplace).getDirection(), 15));
 				row.replace(tempBoss, toReplace);
 				row.replace(tempToReplace, indexBoss);
 			}
 		}
+	}
+	
+	public boolean isRowEmpty() {
+		return row.isEmpty();
 	}
 
 }

@@ -12,8 +12,9 @@ import com.invaders.logic.Enemy;
 public class ClassDRow extends AbstractEnemyRow {
 
 	private CircularList<Enemy> row;
-	
-	public ClassDRow() {
+
+	public ClassDRow(int speed) {
+		this.speed = speed;
 		makeRow(true);
 	}
 
@@ -25,15 +26,15 @@ public class ClassDRow extends AbstractEnemyRow {
 		float xCoord = 51;
 		int randomIndex = (int) (Math.random() * 11);
 		int strengthBoss = (int) (Math.random() * 4) + 2;
-		int strength = (int) (Math.random() * 5) + 1;
+		int strength = (int) (Math.random() * 4) + 2;
 		System.out.println(randomIndex + " " + strengthBoss);
 		for (int i = 0; i < 11; i++) {
 			if (i == randomIndex) {
 				row.add(new SimpleNode<Enemy>(
-						new Enemy(strengthBoss, new Texture("images/enemy2.png"), xCoord, 490, 60, true, true)));
+						new Enemy(strengthBoss, new Texture("images/enemy2.png"), xCoord, 420, speed, true, true, 50)));
 			} else {
 				row.add(new SimpleNode<Enemy>(
-						new Enemy(strength, new Texture("images/enemy1.png"), xCoord, 490, 60, false, true)));
+						new Enemy(strength, new Texture("images/enemy1.png"), xCoord, 420, speed, false, true, 30)));
 				strength = (int) (Math.random() * 5) + 1;
 			}
 			xCoord += 65;
@@ -42,7 +43,8 @@ public class ClassDRow extends AbstractEnemyRow {
 	}
 
 	@Override
-	public void deleteEnemy(SimpleList<Bullet> bullets) {
+	public int deleteEnemy(SimpleList<Bullet> bullets) {
+		int score = 0;
 		if (bullets.getLength() > 0 && row.getLength() > 0) {
 			for (int i = 0; i < bullets.getLength(); i++) {
 				for (int j = 0; j < row.getLength(); j++) {
@@ -53,16 +55,17 @@ public class ClassDRow extends AbstractEnemyRow {
 						temp.reduceStrength();
 						if (temp.getStrength() == 0) {
 							if (temp.getIsBoss()) {
+								score = temp.getScore();
 								changeBoss(temp);
 							} else {
+								score = temp.getScore();
 								row.remove(temp);
 							}
 							if (row.getLength() > 1) {
 								bubbleSortRow();
 								sortRow(xCoord + 32.5f, row.getLength());
 							}
-						}
-						else if (row.getLength() > 1) {
+						} else if (row.getLength() > 1) {
 							bubbleSortRow();
 						}
 						break;
@@ -70,6 +73,7 @@ public class ClassDRow extends AbstractEnemyRow {
 				}
 			}
 		}
+		return score;
 	}
 
 	@Override
@@ -101,7 +105,7 @@ public class ClassDRow extends AbstractEnemyRow {
 			}
 		}
 	}
-	
+
 	public void bubbleSortRow() {
 		int number = row.getLength();
 		for (int i = 0; i < number - 1; i++) {
@@ -125,28 +129,29 @@ public class ClassDRow extends AbstractEnemyRow {
 
 					if (row.find(j).getIsBoss()) {
 
-						row.replace(j + 1, new SimpleNode<Enemy>(new Enemy(strengthCurrent,
-								new Texture("images/enemy2.png"), xCoordNext, yCoordNext, 60, true, directionCurrent)));
+						row.replace(j + 1,
+								new SimpleNode<Enemy>(new Enemy(strengthCurrent, new Texture("images/enemy2.png"),
+										xCoordNext, yCoordNext, speed, true, directionCurrent, 50)));
 
 						row.replace(j, new SimpleNode<Enemy>(new Enemy(strengthNext, new Texture("images/enemy1.png"),
-								xCoordCurrent, yCoordCurrent, 60, false, directionNext)));
+								xCoordCurrent, yCoordCurrent, speed, false, directionNext, 30)));
 
 					} else if (row.find(j + 1).getIsBoss()) {
 
 						row.replace(j + 1,
 								new SimpleNode<Enemy>(new Enemy(strengthCurrent, new Texture("images/enemy1.png"),
-										xCoordNext, yCoordNext, 60, false, directionCurrent)));
+										xCoordNext, yCoordNext, speed, false, directionCurrent, 30)));
 
 						row.replace(j, new SimpleNode<Enemy>(new Enemy(strengthNext, new Texture("images/enemy2.png"),
-								xCoordCurrent, yCoordCurrent, 60, true, directionNext)));
+								xCoordCurrent, yCoordCurrent, speed, true, directionNext, 50)));
 
 					} else {
 						row.replace(j + 1,
-								new SimpleNode<Enemy>(new Enemy(strengthCurrent, new Texture("images/enemy3.png"),
-										xCoordNext, yCoordNext, 60, false, directionCurrent)));
+								new SimpleNode<Enemy>(new Enemy(strengthCurrent, new Texture("images/enemy1.png"),
+										xCoordNext, yCoordNext, speed, false, directionCurrent, 30)));
 
 						row.replace(j, new SimpleNode<Enemy>(new Enemy(strengthNext, new Texture("images/enemy1.png"),
-								xCoordCurrent, yCoordCurrent, 60, false, directionNext)));
+								xCoordCurrent, yCoordCurrent, speed, false, directionNext, 30)));
 					}
 				}
 			}
@@ -175,9 +180,13 @@ public class ClassDRow extends AbstractEnemyRow {
 			boolean direction = row.find(indexNewBoss).getDirection();
 			int strength = (int) ((Math.random() * 4) + 2);
 			row.replace(indexNewBoss, new SimpleNode<Enemy>(new Enemy(strength, new Texture("images/enemy2.png"),
-					xCoordNewBoss, yCoordNewBoss, 60, true, direction)));
+					xCoordNewBoss, yCoordNewBoss, speed, true, direction, 30)));
 		} else {
 			deleteRow();
 		}
+	}
+
+	public boolean isRowEmpty() {
+		return row.isEmpty();
 	}
 }

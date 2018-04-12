@@ -14,7 +14,7 @@ public class ClassBRow extends AbstractEnemyRow {
 
 	private DoubleList<Enemy> row;
 	private float changeMoveTimer;
-	private final float changeMoveTimerConstant = 0.7f;
+	private final float changeMoveTimerConstant = 1.5f;
 
 	public ClassBRow(int speed) {
 		this.speed = speed;

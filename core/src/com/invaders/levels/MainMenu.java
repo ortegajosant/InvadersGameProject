@@ -22,11 +22,12 @@ public class MainMenu extends Window {
 	private int width;
 	private static Music mainTheme;
 	private static Sound navigateSound;
-	private float enemiesSpawnTimer = 0;
+	private float enemiesSpawnTimer = 1.6f;
 	private SimpleList<Enemy> enemies;
 
 	public MainMenu(InvadersLauncher invadersLauncher) {
 		super(invadersLauncher);
+		enemies = new SimpleList<Enemy>();
 	}
 
 	@Override
@@ -54,6 +55,7 @@ public class MainMenu extends Window {
 	public void render(float delta) {
 		renderGame();
 		doAction();
+		
 	}
 
 	public void renderGame() {
@@ -67,6 +69,12 @@ public class MainMenu extends Window {
 		invadersLauncher.batch.draw(controlButton, this.width / 2 - controlButton.getWidth() / 2, 125);
 		invadersLauncher.batch.draw(arrowImage, this.width / 2 - 150, yCoordArrow);
 
+		spawnEnemies();
+		if (enemies.getLength() > 0) {
+			for (int i = 0; i < enemies.getLength(); i++) {
+				enemies.find(i).render(invadersLauncher.batch);
+			}
+		}
 		invadersLauncher.batch.end();
 	}
 
@@ -106,12 +114,24 @@ public class MainMenu extends Window {
 		}
 	}
 	
-//	public void spawnEnemies() {
-//		if (enemiesSpawnTimer > 1.6f) {
-//			float yCoord = Math.random() * (Gdx.graphics.getHeight() - 42);
-//			enemies.add(new SimpleNode<Enemy>(new Enemy()));
-//		}
-//	}
+	public void spawnEnemies() {
+		float delta = Gdx.graphics.getDeltaTime();
+		enemiesSpawnTimer += delta;
+		if (enemiesSpawnTimer >= 0.3f) {
+			float yCoord = (float)(Math.random() * (Gdx.graphics.getHeight() - 41));
+			enemies.add(new SimpleNode<Enemy>(new Enemy(0, new Texture("images/enemy3.png"), -42, yCoord, 200, false, true, 0)));
+			enemiesSpawnTimer = 0;
+		} 
+		for (int i = 0; i < enemies.getLength(); i++) {
+			if(enemies.find(i).getXCoord() > Gdx.graphics.getWidth()) {
+				enemies.remove(i);
+			} else {
+				enemies.find(i).move(delta, false);
+			}
+		}
+		System.out.println(enemies.getLength());
+		
+	}
 	
 	@Override
 	public void nextLevel() {
@@ -120,6 +140,4 @@ public class MainMenu extends Window {
 		mainTheme.dispose();
 		invadersLauncher.setScreen(new LevelOne(invadersLauncher));
 	}
-	
-	
 }

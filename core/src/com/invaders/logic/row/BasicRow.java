@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.invaders.datastructures.SimpleList;
 import com.invaders.datastructures.SimpleNode;
 import com.invaders.game.InvadersLauncher;
-import com.invaders.levels.MainMenu;
 import com.invaders.levels.Window;
 import com.invaders.logic.Bullet;
 import com.invaders.logic.Enemy;
@@ -107,7 +106,7 @@ public class BasicRow extends AbstractEnemyRow {
 	}
 
 	public void rowWin(Window currentWindow) {
-		if (row.getFirst().getDato().getYCoord() < 0) {
+		if (row.getFirst().getDato().getYCoord() < 50) {
 			currentWindow.finishGame(currentWindow);
 		}
 	}

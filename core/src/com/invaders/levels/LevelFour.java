@@ -8,7 +8,7 @@ public class LevelFour extends Window {
 	public LevelFour(InvadersLauncher invadersLauncher) {
 		super(invadersLauncher);
 		rowList = new String[] { "Basic", "Class A", "Class B", "Class C", "Class D", "Class E" };
-		rowNumber = 12;
+		rowNumber = 4;
 		int index = (int) (Math.random() * 3);
 		lastRow = rowList[index];
 		index = (int) (Math.random() * 3);

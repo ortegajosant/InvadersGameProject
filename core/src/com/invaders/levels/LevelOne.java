@@ -8,7 +8,7 @@ public class LevelOne extends Window {
 	public LevelOne(InvadersLauncher invadersLauncher) {
 		super(invadersLauncher);
 		rowList = new String[]{"Basic", "Class A"};
-		rowNumber = 6;
+		rowNumber = 4;
 		int index = (int) (Math.random() * rowList.length);
 		lastRow = rowList[index];
 		index = (int) (Math.random() * rowList.length);
@@ -21,7 +21,7 @@ public class LevelOne extends Window {
 		super.show();
 		enemiesRow = factory.createEnemyRow(2, lastRow);
 		enemyMovement =  Gdx.audio.newSound(Gdx.files.internal("music/fastinvader1.ogg"));
-		super.scoreGame = 0;
+		scoreGame = 0;
 	}
 
 	@Override

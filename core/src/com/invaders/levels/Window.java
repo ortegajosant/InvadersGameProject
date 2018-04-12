@@ -36,7 +36,6 @@ public abstract class Window implements Screen {
 	private float gunActivation;
 	protected static Sound levelUpSound;
 
-
 	public Window(InvadersLauncher invadersLauncher) {
 		this.invadersLauncher = invadersLauncher;
 
@@ -51,14 +50,12 @@ public abstract class Window implements Screen {
 		levelName = new BitmapFont(Gdx.files.internal("font/mercutio_basic.fnt"),
 				Gdx.files.internal("font/mercutio_basic_0.png"), false);
 		shape = new ShapeRenderer();
-		if (bulletSound == null) {
-			bulletSound = Gdx.audio.newSound(Gdx.files.internal("music/shoot.ogg"));
-			enemyDead =  Gdx.audio.newSound(Gdx.files.internal("music/invaderKilled.ogg"));
-			levelUpSound = Gdx.audio.newSound(Gdx.files.internal("music/levelUp.ogg"));
-		}
+		bulletSound = Gdx.audio.newSound(Gdx.files.internal("music/shoot.ogg"));
+		enemyDead = Gdx.audio.newSound(Gdx.files.internal("music/invaderKilled.ogg"));
+		levelUpSound = Gdx.audio.newSound(Gdx.files.internal("music/levelUp.ogg"));
 		levelUpSound.play();
 		movementTime = 0;
-		gunActivation= 0;
+		gunActivation = 0;
 	}
 
 	@Override
@@ -83,12 +80,12 @@ public abstract class Window implements Screen {
 		}
 
 		// Disparos
-		if (keyObserver.keySpace() && gunActivation > 1.2f) {
+		if (keyObserver.keySpace() && gunActivation > 0.7f) {
 			bulletSound.play();
 			bullets.addBullet(player);
 			gunActivation = 0;
 		}
-		
+
 		else if (keyObserver.keyEnter()) {
 			pause();
 		}
@@ -104,7 +101,7 @@ public abstract class Window implements Screen {
 		if (0.5f < movementTime) {
 			enemyMovement.play();
 			movementTime = 0;
-		}		
+		}
 		if (!enemiesRow.isRowEmpty()) {
 			enemiesRow.rowWin(this);
 		}
@@ -115,15 +112,17 @@ public abstract class Window implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		shape.begin(ShapeType.Filled);
 		shape.rect(15, Gdx.graphics.getHeight() - 38, 100, 30);
-		shape.rect(Gdx.graphics.getWidth()/2 - 115,  Gdx.graphics.getHeight() - 38, 230, 30);
+		shape.rect(Gdx.graphics.getWidth() / 2 - 115, Gdx.graphics.getHeight() - 38, 230, 30);
 		shape.rect(Gdx.graphics.getWidth() - 210, Gdx.graphics.getHeight() - 38, 190, 30);
 		shape.end();
 		invadersLauncher.batch.begin();
 		player.render(invadersLauncher.batch);
 		bullets.show(invadersLauncher);
 		levelName.draw(invadersLauncher.batch, "Level " + levelNumber, 20, Gdx.graphics.getHeight() - 10);
-		levelName.draw(invadersLauncher.batch, "Score: " + scoreGame, Gdx.graphics.getWidth() - 205, Gdx.graphics.getHeight() - 10);
-		levelName.draw(invadersLauncher.batch, "Next Row: " + newRow, Gdx.graphics.getWidth()/2 - 110,  Gdx.graphics.getHeight() - 10);
+		levelName.draw(invadersLauncher.batch, "Score: " + scoreGame, Gdx.graphics.getWidth() - 205,
+				Gdx.graphics.getHeight() - 10);
+		levelName.draw(invadersLauncher.batch, "Next Row: " + newRow, Gdx.graphics.getWidth() / 2 - 110,
+				Gdx.graphics.getHeight() - 10);
 		enemiesRow.showRow(invadersLauncher);
 		invadersLauncher.batch.end();
 	}
@@ -150,7 +149,7 @@ public abstract class Window implements Screen {
 	}
 
 	public abstract void nextLevel();
-	
+
 	public void finishGame(Window currentWindow) {
 		currentWindow.dispose();
 		bulletSound.dispose();
@@ -166,7 +165,7 @@ public abstract class Window implements Screen {
 
 	@Override
 	public void pause() {
-		
+
 	}
 
 	@Override
@@ -183,8 +182,8 @@ public abstract class Window implements Screen {
 	public void dispose() {
 
 	}
-	
-	public int getScoreGame () {
+
+	public int getScoreGame() {
 		return scoreGame;
 	}
 

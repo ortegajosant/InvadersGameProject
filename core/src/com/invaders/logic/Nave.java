@@ -22,7 +22,7 @@ public class Nave {
 		if (image ==  null) {
 			image = new Texture("images/nave.png");
 		}
-		this.speed = 100;
+		this.speed = 170;
 		TextureRegion[][] temp = TextureRegion.split(image, image.getWidth()/2, image.getHeight());
 		sprites = new TextureRegion[2];
 		sprites[0] = temp[0][0];

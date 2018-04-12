@@ -41,8 +41,8 @@ public class Enemy {
 		batch.draw(frame, xCoord, yCoord);
 	}
 	
-	public void move(float deltatime, boolean limit) {
-		if (!limit) {
+	public void move(float deltatime, boolean isLimit) {
+		if (!isLimit) {
 			if (direction) {
 				xCoord += this.speed * deltatime;
 			} else {

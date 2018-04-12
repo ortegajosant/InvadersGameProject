@@ -11,7 +11,7 @@ public class DesktopLauncher {
 		config.height = 500;
 		config.width = 800;
 		config.fullscreen = false;
-		config.resizable = false;
+		config.resizable = true;
 		config.x = -1;
 		config.y = -1;
 		new LwjglApplication(new InvadersLauncher(), config);

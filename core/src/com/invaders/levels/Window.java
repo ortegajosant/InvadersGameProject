@@ -111,18 +111,13 @@ public abstract class Window implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		shape.begin(ShapeType.Filled);
-		shape.rect(15, Gdx.graphics.getHeight() - 38, 100, 30);
-		shape.rect(Gdx.graphics.getWidth() / 2 - 115, Gdx.graphics.getHeight() - 38, 230, 30);
-		shape.rect(Gdx.graphics.getWidth() - 210, Gdx.graphics.getHeight() - 38, 190, 30);
+		shape.rect(15, Gdx.graphics.getHeight() - 38, Gdx.graphics.getWidth() -25, 30);
 		shape.end();
 		invadersLauncher.batch.begin();
 		player.render(invadersLauncher.batch);
 		bullets.show(invadersLauncher);
-		levelName.draw(invadersLauncher.batch, "Level " + levelNumber, 20, Gdx.graphics.getHeight() - 10);
-		levelName.draw(invadersLauncher.batch, "Score: " + scoreGame, Gdx.graphics.getWidth() - 205,
-				Gdx.graphics.getHeight() - 10);
-		levelName.draw(invadersLauncher.batch, "Next Row: " + newRow, Gdx.graphics.getWidth() / 2 - 110,
-				Gdx.graphics.getHeight() - 10);
+		levelName.draw(invadersLauncher.batch, "Level " + levelNumber + "          Current: " + lastRow 
+				+ "         Next: " + newRow + "         Score: " + scoreGame, 20, Gdx.graphics.getHeight() - 10);
 		enemiesRow.showRow(invadersLauncher);
 		invadersLauncher.batch.end();
 	}

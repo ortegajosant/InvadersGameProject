@@ -193,7 +193,7 @@ public class ClassDRow extends AbstractEnemyRow {
 	
 	@Override
 	public void rowWin(Window currentWindow) {
-		if (row.getLast().getDato().getYCoord() < 0) {
+		if (row.getLast().getDato().getYCoord() < 50) {
 			currentWindow.finishGame(currentWindow);
 		}
 	}

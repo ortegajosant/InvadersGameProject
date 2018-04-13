@@ -2,10 +2,12 @@ package com.invaders.logic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.invaders.server.ControlServer;
 
 public class KeyObserver {
 	
 	private static KeyObserver instance;
+	private ControlServer wirelessControl;
 	
 	private KeyObserver() {
 		
@@ -19,17 +21,35 @@ public class KeyObserver {
 	}
 	
 	public boolean keyRight(){
+		if (wirelessControl != null && wirelessControl.getMove() != 0) {
+			if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Gdx.input.isKeyPressed(Input.Keys.LEFT) 
+					|| wirelessControl.getMove() == 1) {
+				return true;
+			}
+			return false;
+		}
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			return true;
 		}
 		return false;
+	
+		
 	}
 	
 	public boolean keyLeft() {
-		if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+		if (wirelessControl != null && wirelessControl.getMove() != 0) {
+			if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT)
+					|| wirelessControl.getMove() == 2) {
+				return true;
+			}
+			return false;
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
 			return true;
 		}
-		return false;
+	
+	return false;
+		
 	}
 	
 	public boolean keyUp() {
@@ -58,6 +78,10 @@ public class KeyObserver {
 			return true;
 		}
 		return false;
+	}
+	
+	public void runWirelessControl() {
+		wirelessControl = ControlServer.getInstance();
 	}
 	
 }

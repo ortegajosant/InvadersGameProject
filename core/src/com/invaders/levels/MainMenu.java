@@ -107,7 +107,7 @@ public class MainMenu extends Window {
 			if (arrowLocation == 3) {
 				Gdx.app.exit();
 			} else if (arrowLocation == 2) {
-				// Aquí se abre el servidor
+				keyObserver.runWirelessControl();
 			} else if (arrowLocation == 1) {
 				nextLevel();
 			}
@@ -129,7 +129,6 @@ public class MainMenu extends Window {
 				enemies.find(i).move(delta, false);
 			}
 		}
-		System.out.println(enemies.getLength());
 		
 	}
 	

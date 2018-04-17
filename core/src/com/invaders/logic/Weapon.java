@@ -26,7 +26,7 @@ public class Weapon {
 		}
 	}
 	
-	public void addBullet(Nave player) {
+	public void addBullet(Spaceship player) {
 		bullets.add(new SimpleNode<Bullet>(new Bullet(player.getXCoord() + 12)));
 	}
 	

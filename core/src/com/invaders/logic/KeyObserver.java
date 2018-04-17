@@ -67,6 +67,12 @@ public class KeyObserver {
 	}
 	
 	public boolean keySpace() {
+		if (wirelessControl != null) {
+			if(wirelessControl.getDisparo() == 1) {
+				wirelessControl.setDisparo(0);
+				return true;
+			}
+		}
 		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 			return true;
 		}
@@ -80,8 +86,18 @@ public class KeyObserver {
 		return false;
 	}
 	
+	public void setStatsServer(int level, String current, String next, int score) {
+		String scoreW = String.valueOf(score);
+		String levelW = String.valueOf(level);
+		wirelessControl.setStats(levelW, current, next, scoreW);
+	}
+	
 	public void runWirelessControl() {
 		wirelessControl = ControlServer.getInstance();
+	}
+
+	public ControlServer getWirelessControl() {
+		return wirelessControl;
 	}
 	
 }

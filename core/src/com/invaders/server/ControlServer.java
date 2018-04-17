@@ -18,7 +18,7 @@ public class ControlServer implements Runnable {
 	private ControlServer() {
 		Thread serverThread = new Thread(this);
 		serverThread.start();
-		stats = new String[] { "Main Menu", "nothing", "change", "0" };
+		stats = new String[] {"Main Menu", "void", "void", "0"};
 	}
 
 	public static ControlServer getInstance() {
@@ -47,9 +47,11 @@ public class ControlServer implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		
 		try {
 			serverSocket = new ServerSocket(port);
+			System.out.println(InetAddress.getLocalHost().getHostAddress());
+			System.out.println(port);
 			while (true) {
 				socket = new Socket();
 				socket = serverSocket.accept();
@@ -59,6 +61,7 @@ public class ControlServer implements Runnable {
 
 				int[] messageGetted = (int[]) getMessage.readObject();
 				System.out.println(messageGetted[0]);
+				System.out.println("SHOT"+messageGetted[1]);
 				// Asigna valores a las variables que influyen en el juego
 				shot = messageGetted[1];
 				move = messageGetted[0];
@@ -70,15 +73,14 @@ public class ControlServer implements Runnable {
 				socket.close();
 			}
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println(e.toString());
 		}
 	}
 
-	public void setStats(String level, String current, String next, String score) throws JSONException {
+	public void setStats(String level, String current, String next, String score) {
 		stats[0] = level;
 		stats[1] = current;
 		stats[2] = next;
 		stats[3] = score;
-
 	}
 }

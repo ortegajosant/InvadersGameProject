@@ -9,14 +9,14 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.invaders.game.InvadersLauncher;
 import com.invaders.logic.KeyObserver;
-import com.invaders.logic.Nave;
+import com.invaders.logic.Spaceship;
 import com.invaders.logic.Weapon;
 import com.invaders.logic.row.EnemiesFactoryRow;
 import com.invaders.logic.row.AbstractEnemyRow;
 
 public abstract class Window implements Screen {
 	protected InvadersLauncher invadersLauncher;
-	protected Nave player;
+	protected Spaceship player;
 	protected AbstractEnemyRow enemiesRow;
 	protected EnemiesFactoryRow factory;
 	protected KeyObserver keyObserver;
@@ -28,7 +28,7 @@ public abstract class Window implements Screen {
 	private static BitmapFont levelName;
 	protected int levelNumber;
 	private static ShapeRenderer shape;
-	protected static int scoreGame;
+	protected static int gameScore;
 	protected static Sound bulletSound;
 	protected static Sound enemyDead;
 	protected static Sound enemyMovement;
@@ -43,7 +43,7 @@ public abstract class Window implements Screen {
 
 	@Override
 	public void show() {
-		player = Nave.getInstance();
+		player = Spaceship.getInstance();
 		keyObserver = KeyObserver.getObserverInstance();
 		factory = EnemiesFactoryRow.getInstance();
 		bullets = new Weapon();
@@ -91,9 +91,9 @@ public abstract class Window implements Screen {
 		}
 
 		bullets.shotBullet(delta);
-		int lastScore = scoreGame;
-		scoreGame += enemiesRow.deleteEnemy(bullets.getBullets());
-		if (scoreGame != lastScore) {
+		int lastScore = gameScore;
+		gameScore += enemiesRow.deleteEnemy(bullets.getBullets());
+		if (gameScore != lastScore) {
 			enemyDead.play();
 		}
 		enemiesRow.moveRow(delta);
@@ -117,9 +117,13 @@ public abstract class Window implements Screen {
 		player.render(invadersLauncher.batch);
 		bullets.show(invadersLauncher);
 		levelName.draw(invadersLauncher.batch, "Level " + levelNumber + "          Current: " + lastRow 
-				+ "         Next: " + newRow + "         Score: " + scoreGame, 20, Gdx.graphics.getHeight() - 10);
+				+ "         Next: " + newRow + "         Score: " + gameScore, 20, Gdx.graphics.getHeight() - 10);
 		enemiesRow.showRow(invadersLauncher);
 		invadersLauncher.batch.end();
+		if (keyObserver.getWirelessControl() != null) {
+			keyObserver.setStatsServer(levelNumber, lastRow, newRow, gameScore);
+		}
+		
 	}
 
 	public void nextRow(int level) {
@@ -179,7 +183,7 @@ public abstract class Window implements Screen {
 	}
 
 	public int getScoreGame() {
-		return scoreGame;
+		return gameScore;
 	}
 
 }

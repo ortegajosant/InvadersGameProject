@@ -129,7 +129,6 @@ public class MainMenu extends Window {
 				enemies.find(i).move(delta, false);
 			}
 		}
-		
 	}
 	
 	@Override

@@ -21,7 +21,7 @@ public class LevelOne extends Window {
 		super.show();
 		enemiesRow = factory.createEnemyRow(2, lastRow);
 		enemyMovement =  Gdx.audio.newSound(Gdx.files.internal("music/fastinvader1.ogg"));
-		scoreGame = 0;
+		gameScore = 0;
 	}
 
 	@Override

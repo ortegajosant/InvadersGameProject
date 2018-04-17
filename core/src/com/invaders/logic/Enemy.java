@@ -11,7 +11,7 @@ public class Enemy {
 	private int strength;
 	private Animation<TextureRegion> animation;
 	private TextureRegion[] sprites;
-	private float tiempo;
+	private float animationTime;
 	TextureRegion frame;
 	private float xCoord;
 	private float yCoord;
@@ -23,7 +23,7 @@ public class Enemy {
 	
 	public Enemy(int endurance, Texture image, float xCoord, float yCoord, float speed, boolean boss, boolean direction, int score) {
 		this.strength = endurance;
-		this.tiempo = 0;
+		this.animationTime = 0;
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
 		this.speed = speed;
@@ -36,8 +36,8 @@ public class Enemy {
 	
 	public void render(final SpriteBatch batch) {
 		setRectanglePosition();
- 		tiempo += Gdx.graphics.getDeltaTime();
-		frame = animation.getKeyFrame(tiempo, true);
+ 		animationTime += Gdx.graphics.getDeltaTime();
+		frame = animation.getKeyFrame(animationTime, true);
 		batch.draw(frame, xCoord, yCoord);
 	}
 	

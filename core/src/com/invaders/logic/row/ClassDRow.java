@@ -112,23 +112,27 @@ public class ClassDRow extends AbstractEnemyRow {
 		for (int i = 0; i < number - 1; i++) {
 			for (int j = 0; j < (number - i) - 1; j++) {
 				if (row.find(j).getStrength() < row.find(j + 1).getStrength()) {
+					
+					Enemy current = row.find(j);
+					
+					Enemy next = row.find(j + 1);
 
-					float xCoordCurrent = row.find(j).getXCoord();
+					float xCoordCurrent = current.getXCoord();
 
-					float xCoordNext = row.find(j + 1).getXCoord();
+					float xCoordNext = next.getXCoord();
 
-					float yCoordCurrent = row.find(j).getYCoord();
+					float yCoordCurrent = current.getYCoord();
 
-					float yCoordNext = row.find(j + 1).getYCoord();
+					float yCoordNext = next.getYCoord();
 
-					boolean directionCurrent = row.find(j).getDirection();
-					boolean directionNext = row.find(j + 1).getDirection();
+					boolean directionCurrent = current.getDirection();
+					boolean directionNext = next.getDirection();
 
-					int strengthCurrent = row.find(j).getStrength();
+					int strengthCurrent = current.getStrength();
 
-					int strengthNext = row.find(j + 1).getStrength();
+					int strengthNext = next.getStrength();
 
-					if (row.find(j).getIsBoss()) {
+					if (current.getIsBoss()) {
 
 						row.replace(j + 1,
 								new SimpleNode<Enemy>(new Enemy(strengthCurrent, new Texture("images/enemy2.png"),
@@ -137,7 +141,7 @@ public class ClassDRow extends AbstractEnemyRow {
 						row.replace(j, new SimpleNode<Enemy>(new Enemy(strengthNext, new Texture("images/enemy1.png"),
 								xCoordCurrent, yCoordCurrent, speed, false, directionNext, 30)));
 
-					} else if (row.find(j + 1).getIsBoss()) {
+					} else if (next.getIsBoss()) {
 
 						row.replace(j + 1,
 								new SimpleNode<Enemy>(new Enemy(strengthCurrent, new Texture("images/enemy1.png"),

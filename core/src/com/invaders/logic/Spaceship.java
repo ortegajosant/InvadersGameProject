@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
-public class Nave {
-	private static Nave instance;
+public class Spaceship {
+	private static Spaceship instance;
 	private float speed;
 	private Animation<TextureRegion> animation;
 	private static TextureRegion[] sprites;
@@ -16,9 +16,9 @@ public class Nave {
 	private float xCoord;
 	private static Texture image;
 	private Rectangle rectangleCollision;	
-	private float tiempo;
+	private float animationTime;
 	
-	private Nave() {
+	private Spaceship() {
 		if (image ==  null) {
 			image = new Texture("images/nave.png");
 		}
@@ -33,9 +33,9 @@ public class Nave {
 		
 	}
 	
-	public static Nave getInstance() {
+	public static Spaceship getInstance() {
 		if (instance == null) {
-			instance = new Nave();
+			instance = new Spaceship();
 		}
 		return instance;
 	}
@@ -45,8 +45,8 @@ public class Nave {
 	 * @param batch Recibe el "lienzo" donde colocar el objeto nave.
 	 */
 	public void render(final SpriteBatch batch) {
-		tiempo += Gdx.graphics.getDeltaTime();
-		sprite = animation.getKeyFrame(tiempo, true);
+		animationTime += Gdx.graphics.getDeltaTime();
+		sprite = animation.getKeyFrame(animationTime, true);
 		setRectanglePosition();
 		batch.draw(sprite, this.xCoord, 30);
 	}

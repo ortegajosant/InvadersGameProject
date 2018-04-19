@@ -1,5 +1,11 @@
 package com.invaders.datastructures;
 
+/**
+ * Lista enlazada simple
+ * @author jorte
+ *
+ * @param <T> Tipo de dato de la lista
+ */
 public class SimpleList<T> {
 	private SimpleNode<T> first;
 	private int length;
@@ -8,6 +14,10 @@ public class SimpleList<T> {
 
 	}
 
+	/**
+	 * Añade un nuevo nodo al final de la lista
+	 * @param nodo SimpleNode
+	 */
 	public void add(SimpleNode<T> nodo) {
 		if (isEmpty()) {
 			add(0, nodo);
@@ -25,6 +35,11 @@ public class SimpleList<T> {
 		}
 	}
 
+	/**
+	 * Añade un nuevo nodo en la posición indicada de la lista
+	 * @param index Int
+	 * @param nodo SimpleNode
+	 */
 	public void add(int index, SimpleNode<T> nodo) {
 		if (index == 0) {
 			nodo.setNext(first);
@@ -53,6 +68,10 @@ public class SimpleList<T> {
 		}
 	}
 
+	/**
+	 * Remueve un nodo según la posición de la lista
+	 * @param index Integer
+	 */
 	public void remove(int index) {
 		if (index == 0) {
 			first = first.getNext();
@@ -77,6 +96,11 @@ public class SimpleList<T> {
 		}
 	}
 
+	/**
+	 * Remueve un nodo según la igualdad con el nodo ingresado
+	 * @param nodo SimpleNode
+	 * @return True / False
+	 */
 	public boolean remove(SimpleNode<T> nodo) {
 		SimpleNode<T> prev = first;
 		SimpleNode<T> temp = first;
@@ -93,6 +117,10 @@ public class SimpleList<T> {
 		return false;
 	}
 
+	/**
+	 * Reueve un nodo según la igualdad de su dato
+	 * @param dato Dato
+	 */
 	public void remove(T dato) {
 		if (first.getDato() == dato) {
 			first = first.getNext();
@@ -114,28 +142,36 @@ public class SimpleList<T> {
 		}
 	}
 
+	/**
+	 * Verifica si la lista está vacía
+	 * @return True / False
+	 */
 	public boolean isEmpty() {
 		return this.first == null;
 
 	}
 
+	/**
+	 * Retorna largo de la lista
+	 * @return Integer
+	 */
 	public int getLength() {
 		return length;
 	}
 
-	public void print() {
-		SimpleNode<T> temp = first;
-		for (int i = 0; i < getLength(); i++) {
-			System.out.println(temp.getDato());
-			temp = temp.getNext();
-		}
-	}
-
+	/**
+	 * Borra nodos de la lista
+	 */
 	public void erase() {
 		this.first = null;
 		this.length = 0;
 	}
 
+	/**
+	 * Retorna dato según el índice ingresado
+	 * @param index Integer
+	 * @return Dato
+	 */
 	public T find(int index) {
 		SimpleNode<T> temp = first;
 		for (int i = 0; i <= index; i++) {
@@ -147,6 +183,10 @@ public class SimpleList<T> {
 		return null;
 	}
 
+	/**
+	 * Retorna primer nodo de la lista
+	 * @return SimpleNode
+	 */
 	public SimpleNode<T> getFirst() {
 		return first;
 	}

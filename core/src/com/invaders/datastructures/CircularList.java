@@ -1,5 +1,11 @@
 package com.invaders.datastructures;
-
+/**
+ * Lista Circular
+ * 
+ * @author jorte
+ *
+ * @param <T> Tipo de dato para la lista
+ */
 public class CircularList<T> {
 	private SimpleNode<T> last;
 	private int length;
@@ -8,6 +14,10 @@ public class CircularList<T> {
 
 	}
 
+	/**
+	 * Añade un nuevo nodo al final de la lista
+	 * @param nodo Nodo con dato
+	 */
 	public void add(SimpleNode<T> nodo) {
 		if (isEmpty()) {
 			last = nodo;
@@ -27,6 +37,11 @@ public class CircularList<T> {
 		}
 	}
 
+	/**
+	 * Añade un nuevo nodo con en el índice indicado
+	 * @param index indice de la lista
+	 * @param nodo Nodo con el dato
+	 */
 	public void add(int index, SimpleNode<T> nodo) {
 		SimpleNode<T> temp = last;
 		if (index == 0) {
@@ -59,10 +74,18 @@ public class CircularList<T> {
 		}
 	}
 
+	/** 
+	 * Verifica si la lista está vacía
+	 * @return true o false
+	 */
 	public boolean isEmpty() {
 		return last == null;
 	}
 
+	/**
+	 * Remueve un nodo de la lista
+	 * @param nodo Nodo a verificar para hacer la eliminación
+	 */
 	public void remove(SimpleNode<T> nodo) {
 		SimpleNode<T> temp = last;
 		int i;
@@ -84,6 +107,10 @@ public class CircularList<T> {
 
 	}
 
+	/**
+	 * Remueve nodo según un dato indicado
+	 * @param dato Dato para eliminar nodo
+	 */
 	public void remove(T dato) {
 		if (last.getDato() == dato) {
 			remove(0);
@@ -105,6 +132,10 @@ public class CircularList<T> {
 
 	}
 
+	/**
+	 * Remueve un nodo según el índice de la lista
+	 * @param index indice
+	 */
 	public void remove(int index) {
 		SimpleNode<T> temp = last;
 		int i;
@@ -135,12 +166,21 @@ public class CircularList<T> {
 		}
 	}
 
+	/**
+	 * Añade un nodo al final de la lista
+	 * @param nodo SimpleNode Nodo a agregar
+	 */
 	public void addLast(SimpleNode<T> nodo) {
 		this.last = nodo;
 		last.setNext(last);
 		length += 1;
 	}
 
+	/**
+	 * Remplaza un nodo
+	 * @param index Indice a remplazar
+	 * @param nodo Nodo a remplazar
+	 */
 	public void replace(int index, SimpleNode<T> nodo) {
 		if (index >= length) {
 			throw new IndexOutOfBoundsException("Index out of range");
@@ -175,19 +215,35 @@ public class CircularList<T> {
 
 	}
 
+	/**
+	 * Retorna largo de la lista
+	 * @return integer
+	 */
 	public int getLength() {
 		return length;
 	}
 
+	/**
+	 * Obtinene el últmio nodo de la lista
+	 * @return SimpleNode
+	 */
 	public SimpleNode<T> getLast() {
 		return this.last;
 	}
 
+	/**
+	 * Elimina todos los nodos de la lista
+	 */
 	public void erase() {
 		this.last = null;
 		this.length = 0;
 	}
 
+	/**
+	 * Retorna un dato
+	 * @param index Indice a verificar para retornar dato
+	 * @return Dato
+	 */
 	public T find(int index) {
 		SimpleNode<T> temp = last;
 		if (index < length) {

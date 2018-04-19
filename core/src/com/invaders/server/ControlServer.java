@@ -2,8 +2,13 @@ package com.invaders.server;
 
 import java.net.*;
 import java.io.*;
-import org.json.*;
 
+/**
+ * Singleton
+ * Contiene toda la lógica para la creación del servidor que se comunica con el cliente(Celular) y así recibir sus indicaciones
+ * @author jorte
+ *
+ */
 public class ControlServer implements Runnable {
 	private static ControlServer instance;
 	private ServerSocket serverSocket;
@@ -21,6 +26,10 @@ public class ControlServer implements Runnable {
 		stats = new String[] {"Main Menu", "void", "void", "0"};
 	}
 
+	/**
+	 * Verifica si ya existe una instancia del servidor
+	 * @return ControlServer
+	 */
 	public static ControlServer getInstance() {
 		if (instance == null) {
 			System.out.println("Se ha iniciado el servidor");
@@ -29,10 +38,18 @@ public class ControlServer implements Runnable {
 		return instance;
 	}
 
+	/**
+	 * Configura el movimiento para la nave
+	 * @param move Int
+	 */
 	public void setMove(int move) {
 		this.move = move;
 	}
 
+	/**
+	 * Retorna el tipo de movimiento para la nave
+	 * @return integer
+	 */
 	public int getMove() {
 		return move;
 	}
@@ -46,6 +63,9 @@ public class ControlServer implements Runnable {
 	}
 
 	@Override
+	/**
+	 * Ejecuta toda la lógica del servidor, pone abierto el servidor, recibe y envía datos
+	 */
 	public void run() {
 		
 		try {
@@ -77,6 +97,13 @@ public class ControlServer implements Runnable {
 		}
 	}
 
+	/**
+	 * Configura los datos a enviar para el cliente
+	 * @param level Nivel
+	 * @param current Hilera actual
+	 * @param next Hilera siguiente
+	 * @param score Puntaje de partida
+	 */
 	public void setStats(String level, String current, String next, String score) {
 		stats[0] = level;
 		stats[1] = current;

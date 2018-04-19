@@ -7,6 +7,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
+/**
+ * Contiene las características necesarias 
+ * @author jorte
+ *
+ */
 public class Spaceship {
 	private static Spaceship instance;
 	private float speed;
@@ -32,7 +37,11 @@ public class Spaceship {
 		rectangleCollision = new Rectangle(this.xCoord, 30, 32, 32);
 		
 	}
-	
+
+	/**
+	 * Inicializa la nave jugador
+	 * @return Spaceship
+	 */
 	public static Spaceship getInstance() {
 		if (instance == null) {
 			instance = new Spaceship();
@@ -51,8 +60,13 @@ public class Spaceship {
 		batch.draw(sprite, this.xCoord, 30);
 	}
 	
-	public void changePosition(boolean doMotion, float delta) {
-		if (doMotion) {
+	/**
+	 * Cambia la posición de la nave.
+	 * @param direction Indica la dirección en la que se debe mover la nave
+	 * @param delta Tiempo entre un Frame y otro
+	 */
+	public void changePosition(boolean direction, float delta) {
+		if (direction) {
 			if (this.getXCoord() < Gdx.graphics.getWidth() - this.getSprite().getRegionWidth()) {
 				this.setXCoord(this.getXCoord() + (this.getSpeed() * delta));
 			}
@@ -63,26 +77,49 @@ public class Spaceship {
 		}
 	}
 	
+	/**
+	 * Retorna Textura
+	 * @return TextureRegion
+	 */
 	public TextureRegion getSprite() {
 		return this.sprite;
 	}
 	
+	/**
+	 * Retorna la velocidad del enemigo
+	 * @return float
+	 */
 	public float getSpeed() {
 		return this.speed;
 	}
 
+	/**
+	 * Establece la coordenada en X
+	 * @param xCoord Float
+	 */
 	public void setXCoord(float xCoord) {
 		this.xCoord = xCoord;
 	}
 	
+	/**
+	 * Retorna la coordenada en X
+	 * @return float
+	 */
 	public float getXCoord() {
 		return this.xCoord;
 	}
 	
+	/**
+	 * Establece las coordenadas de Rectangle, este controla las colisiones
+	 */
 	public void setRectanglePosition() {
 		rectangleCollision.setX(this.xCoord);
 	}
 	
+	/**
+	 * Retorna rectangleCollision
+	 * @return Rectangle
+	 */
 	public Rectangle getRectangle() {
 		return rectangleCollision;
 	}

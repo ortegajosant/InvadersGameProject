@@ -7,6 +7,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
+/**
+ * Contiene lo necesario para crear un nuevo Enemigo
+ * @author jorte
+ *
+ */
 public class Enemy {
 	private int strength;
 	private Animation<TextureRegion> animation;
@@ -34,6 +39,10 @@ public class Enemy {
 		this.score = score;
 	}
 	
+	/**
+	 * Dibuja el enemigo en la pantalla
+	 * @param batch lienzo sobre el cual se pintan los enemigos
+	 */
 	public void render(final SpriteBatch batch) {
 		setRectanglePosition();
  		animationTime += Gdx.graphics.getDeltaTime();
@@ -41,6 +50,11 @@ public class Enemy {
 		batch.draw(frame, xCoord, yCoord);
 	}
 	
+	/**
+	 * Realiza el movimiento en pantalla para el enemigo
+	 * @param deltatime float (Diferencia de tiempo entre un frame y otro )
+	 * @param isLimit boolean (Indica si se llega a un límite en la pantalla)
+	 */
 	public void move(float deltatime, boolean isLimit) {
 		if (!isLimit) {
 			if (direction) {
@@ -59,29 +73,51 @@ public class Enemy {
 		}
 	}
 	
+	/**
+	 * Establece coordenadas en X
+	 * @param xCoord float
+	 */
 	public void setXCoord(float xCoord) {
 		this.xCoord = xCoord;
 	}
 	
+	/**
+	 * Establece coordenadas en Y
+	 * @param yCoord float
+	 */
 	public void setYCoord(float yCoord) {
 		this.yCoord = yCoord;
 	}
 	
+	/**
+	 * Retorna coordenadas en X del enemigo
+	 * @return xCoord Float
+	 */
 	public float getXCoord() {
 		return xCoord;
 	}
 	
+	/**
+	 * Retorna el Rectangle que controla las colisiones en pantalla
+	 * @return Rectangle (rectangleCollision)
+	 */
 	public Rectangle getRectangle() {
 		return rectangleCollision;
 	}
 	
+	/**
+	 * Establece las nuevas coordenadas para el Rectangle
+	 */
 	public void setRectanglePosition() {
 		rectangleCollision.setX(this.xCoord);
 		rectangleCollision.setY(this.yCoord);
 	}
 
+	/**
+	 * Retorna coordenada en Y
+	 * @return Float
+	 */
 	public float getYCoord() {
-		// TODO Auto-generated method stub
 		return this.yCoord;
 	}
 	
@@ -89,18 +125,33 @@ public class Enemy {
 		return this.strength;
 	}
 
+	/**
+	 * Reduce la resistencia de los enemigos
+	 */
 	public void reduceStrength() {
 		this.strength--;
 	}
 	
+	/**
+	 * Establece la resistencia de los enmigos
+	 * @param i Integer
+	 */
 	public void setStrength(int i) {
 		this.strength = i;
 	}
 	
+	/**
+	 * Establece si el enemigo es un boss o no
+	 * @param boss Boolean 
+	 */
 	public void setBoss(boolean boss) {
 		this.isBoss = boss;
 	}
 	
+	/**
+	 * Establece el arreglo de texturas para el enemigo
+	 * @param texture Texture
+	 */
 	public void setTexture(Texture texture) {
 		TextureRegion[][] temp = TextureRegion.split(texture, texture.getWidth() / 2, texture.getHeight());
 		sprites = new TextureRegion[2];
@@ -109,13 +160,26 @@ public class Enemy {
 		animation = new Animation<>(1/2f, sprites);
 	}
 	
+	/**
+	 * Retorna si es jefe o no
+	 * @return isBoss
+	 */
 	public boolean getIsBoss() {
 		return this.isBoss;
 	}
+	
+	/**
+	 * Retorna la direcctión en la que se está moviendo el enemigo
+	 * @return True / False
+	 */
 	public boolean getDirection() {
 		return this.direction;
 	}
 	
+	/**
+	 * Retorna el puntaje que genera el enemigo
+	 * @return Integer
+	 */
 	public int getScore() {
 		return this.score;
 	}

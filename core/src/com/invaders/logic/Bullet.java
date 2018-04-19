@@ -5,6 +5,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
+/**
+ * Contiene las características de una bala
+ * @author jorte
+ *
+ */
 public class Bullet {
 	private static Texture sprite;
 	private float yCoord, xCoord;
@@ -25,7 +30,10 @@ public class Bullet {
 	 * @param deltaTime 
 	 */
 
-	
+	/**
+	 * Mueve la bala a lo largo de la pantalla, verifica si esta se ha salido del rango de pantalla
+	 * @param deltaTime Float (tiempo entre un Frame y otro)
+	 */
 	public void update(float deltaTime) {
 		yCoord += 400 * deltaTime;
 		if(yCoord > Gdx.graphics.getHeight()) {
@@ -33,16 +41,28 @@ public class Bullet {
 		}
 	}
 	
+	/**
+	 * Pinta la bala en una coordenada específica
+	 * @param batch Lienzo donde pintar (Pantalla principal)
+	 */
 	public void render(SpriteBatch batch) {
 		setRectanglePosition();
 		batch.draw(sprite, this.xCoord, this.yCoord);
 		
 	}
 	
+	/**
+	 * Retorna valor booleano que indica si la bala es candidata a eliminarse
+	 * @return True / False
+	 */
 	public boolean getRemove() {
 		return remove;
 	}
 	
+	/**
+	 * Retorna el atributo Rectangle, con este se controlan las colisiones
+	 * @return Rectangle (rectangleCollision)
+	 */
 	public Rectangle getRectangle() {
 		return rectangleCollision;
 	}
@@ -54,6 +74,10 @@ public class Bullet {
 		rectangleCollision.setY(this.yCoord);
 	}
 
+	/**
+	 * Establece el valor para remove, este hace que la bala se pueda eliminar o no
+	 * @param b True / 
+	 */
 	public void setRemove(boolean b) {
 		this.remove = true;
 		

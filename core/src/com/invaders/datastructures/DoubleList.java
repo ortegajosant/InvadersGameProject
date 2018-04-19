@@ -1,5 +1,11 @@
 package com.invaders.datastructures;
 
+/**
+ * Lista doblemente enlazada
+ * @author jorte
+ *
+ * @param <T> Tipo de dato de la lista
+ */
 public class DoubleList<T> {
 	private DoubleNode<T> first;
 	private int length;
@@ -8,6 +14,11 @@ public class DoubleList<T> {
 
 	}
 
+	/**
+	 * Retorna un nodo según un índica
+	 * @param index Indice a verificar 
+	 * @return DoubleNode
+	 */
 	public DoubleNode<T> getNode(int index) {
 		int i = 0;
 		DoubleNode<T> temp = first;
@@ -24,6 +35,10 @@ public class DoubleList<T> {
 		return null;
 	}
 
+	/**
+	 * Añade un nuevo nodo al final de la lista
+	 * @param nodo DoubleNode
+	 */
 	public void add(DoubleNode<T> nodo) {
 		if (isEmpty()) {
 			addFirst(nodo);
@@ -41,6 +56,11 @@ public class DoubleList<T> {
 		}
 	}
 
+	/**
+	 * Añade un nuevo nodo en el indice indicado
+	 * @param index Indice (int)
+	 * @param nodo DoubleNode
+	 */
 	public void add(int index, DoubleNode<T> nodo) {
 		if (index == 0) {
 			if (isEmpty()) {
@@ -75,23 +95,27 @@ public class DoubleList<T> {
 		}
 	}
 
+	/**
+	 * Añade nodo al principio de la lista
+	 * @param nodo Double Node
+	 */
 	private void addFirst(DoubleNode<T> nodo) {
 		first = nodo;
 		length += 1;
 	}
 
+	/**
+	 * Verifica si la lista está vacía
+	 * @return True / False
+	 */
 	public boolean isEmpty() {
 		return first == null;
 	}
 
-	public void print() {
-		DoubleNode<T> temp = first;
-		for (int i = 0; i < length; i++) {
-			System.out.println(temp.getDato());
-			temp = temp.getNext();
-		}
-	}
-
+	/**
+	 * Remueve un Nodo de la lista
+	 * @param nodo DoubleNode
+	 */
 	public void remove(DoubleNode<T> nodo) {
 		if (nodo == first) {
 			first = first.getNext();
@@ -113,6 +137,10 @@ public class DoubleList<T> {
 		}
 	}
 
+	/**
+	 * Remueve un nodo según un índice
+	 * @param index Int
+	 */
 	public void remove(int index) {
 		if (index == 0) {
 			first = first.getNext();
@@ -136,7 +164,12 @@ public class DoubleList<T> {
 			}
 		}
 	}
-
+	
+	/**
+	 * Remplaza un nodo en una posición de la lista
+	 * @param nodo Double Node
+	 * @param index Integer
+	 */
 	public void replace(DoubleNode<T> nodo, int index) {
 		if (index == 0) {
 			if (isEmpty()) {
@@ -177,15 +210,27 @@ public class DoubleList<T> {
 		}
 	}
 
+	/**
+	 * Vacea la lista
+	 */
 	public void erase() {
 		this.first = null;
 		this.length = 0;
 	}
 
+	/**
+	 * Retorna largo de la lista
+	 * @return Integer
+ 	 */
 	public int getLength() {
 		return this.length;
 	}
 
+	/**
+	 * Retorna datos según el índice ingresado
+	 * @param index Integer
+	 * @return Dato
+	 */
 	public T find(int index) {
 		DoubleNode<T> temp = first;
 		if (index < length) {
@@ -199,11 +244,18 @@ public class DoubleList<T> {
 		return null;
 	}
 
+	/**
+	 * Retorna primer nodo de la lista
+	 * @return DoubleNode
+	 */
 	public DoubleNode<T> getFirst() {
-		// TODO Auto-generated method stub
 		return first;
 	}
 
+	/**
+	 * Remueve nodo de la lista según dato ingresado
+	 * @param dato Dato
+	 */
 	public void remove(T dato) {
 		if (dato == first.getDato()) {
 			first = first.getNext();

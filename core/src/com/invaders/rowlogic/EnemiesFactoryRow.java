@@ -44,11 +44,7 @@ public class EnemiesFactoryRow {
 				return new ClassDRow(85);
 			}
 		case 4:
-			if (rowType == "Basic") {
-				return new BasicRow(90);
-			} else if (rowType == "Class A") {
-				return new ClassARow(90);
-			} else if (rowType == "Class B") {
+			if (rowType == "Class B") {
 				return new ClassBRow(90);
 			} else if (rowType == "Class C") {
 				return new ClassCRow(90);

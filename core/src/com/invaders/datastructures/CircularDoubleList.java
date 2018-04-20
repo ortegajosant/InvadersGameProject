@@ -2,9 +2,11 @@ package com.invaders.datastructures;
 
 /**
  * Lista Circular Doblemente Enlazada
+ * 
  * @author jorte
  *
- * @param <T> Tipo de dato que contiene la lista
+ * @param <T>
+ *            Tipo de dato que contiene la lista
  */
 public class CircularDoubleList<T> {
 
@@ -16,7 +18,9 @@ public class CircularDoubleList<T> {
 
 	/**
 	 * add First ubica el nodo entrante en la posición 0 de la lista
-	 * @param nodo Nodo con el dato a agregar
+	 * 
+	 * @param nodo
+	 *            Nodo con el dato a agregar
 	 */
 	private void addFirst(DoubleNode<T> nodo) {
 		this.first = nodo;
@@ -27,6 +31,7 @@ public class CircularDoubleList<T> {
 
 	/**
 	 * Verifica si la lista está vacía
+	 * 
 	 * @return true o false
 	 */
 	public boolean isEmpty() {
@@ -35,7 +40,9 @@ public class CircularDoubleList<T> {
 
 	/**
 	 * Añade un nodo nuevo en la posición final de la lista
-	 * @param nodo Nodo con el dato
+	 * 
+	 * @param nodo
+	 *            Nodo con el dato
 	 */
 	public void add(DoubleNode<T> nodo) {
 		if (isEmpty()) {
@@ -51,8 +58,11 @@ public class CircularDoubleList<T> {
 
 	/**
 	 * Añade un nuevo nodo en la posición indicada
-	 * @param index índice de la lista donde irá el nuevo nodo
-	 * @param nodo Nodo con el dato a agregar
+	 * 
+	 * @param index
+	 *            índice de la lista donde irá el nuevo nodo
+	 * @param nodo
+	 *            Nodo con el dato a agregar
 	 */
 	public void add(int index, DoubleNode<T> nodo) {
 		if (index == 0) {
@@ -80,7 +90,9 @@ public class CircularDoubleList<T> {
 
 	/**
 	 * Remueve un nodo según el dato
-	 * @param dato dato a verificar para eliminar el nodo de la lista
+	 * 
+	 * @param dato
+	 *            dato a verificar para eliminar el nodo de la lista
 	 */
 	public void remove(T dato) {
 		if (first.getDato().equals(dato)) {
@@ -99,7 +111,9 @@ public class CircularDoubleList<T> {
 
 	/**
 	 * Remueve un nodo según la igualdad del nodo ingresado
-	 * @param nodo Nodo a verificar para eliminar en la lista
+	 * 
+	 * @param nodo
+	 *            Nodo a verificar para eliminar en la lista
 	 */
 	public void remove(DoubleNode<T> nodo) {
 		if (nodo == first) {
@@ -118,7 +132,9 @@ public class CircularDoubleList<T> {
 
 	/**
 	 * Remueve nodo de la lista según el indice indicado
-	 * @param index índice de la lista para eliminar el nodo
+	 * 
+	 * @param index
+	 *            índice de la lista para eliminar el nodo
 	 */
 	public void remove(int index) {
 		if (index == 0) {
@@ -142,8 +158,11 @@ public class CircularDoubleList<T> {
 
 	/**
 	 * Remplaza un nodo en la posición indicada segpun un nuevo nodo agregado
-	 * @param index Indice donde se sustituirá el nodo
-	 * @param nodo Nodo a agregar
+	 * 
+	 * @param index
+	 *            Indice donde se sustituirá el nodo
+	 * @param nodo
+	 *            Nodo a agregar
 	 */
 	public void replace(int index, DoubleNode<T> nodo) {
 		DoubleNode<T> temp = first;
@@ -164,8 +183,10 @@ public class CircularDoubleList<T> {
 
 	/**
 	 * Retorna un dato según un indice de la lista
-	 * @param index Indice donde se encuentra el dato
-	 * @return Dato del nodo 
+	 * 
+	 * @param index
+	 *            Indice donde se encuentra el dato
+	 * @return Dato del nodo
 	 */
 	public T find(int index) {
 		DoubleNode<T> temp = first;
@@ -193,6 +214,10 @@ public class CircularDoubleList<T> {
 	public DoubleNode<T> getFirst() {
 		return this.first;
 
+	}
+
+	public void erase() {
+		first = null;
 	}
 
 }

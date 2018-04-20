@@ -63,10 +63,10 @@ public class Enemy {
 				xCoord -= this.speed * deltatime;
 			}
 		} else {
-			if (xCoord < 50) {
-				xCoord += (this.speed + 1) * deltatime;
+			if (!direction) {
+				xCoord += (this.speed + 5) * deltatime;
 			} else {
-				xCoord -= (this.speed + 1) * deltatime;
+				xCoord -= (this.speed + 5) * deltatime;
 			}
 			this.yCoord -= 750 * deltatime;
 			this.direction = !direction;

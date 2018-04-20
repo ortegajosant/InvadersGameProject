@@ -11,6 +11,7 @@ import com.invaders.logic.Enemy;
 
 /**
  * Contiene toda la lógica y funcionamiento de la hilera de enemigos Clase A
+ * 
  * @author jorte
  *
  */
@@ -35,8 +36,8 @@ public class ClassARow extends AbstractEnemyRow {
 		System.out.println(randomIndex + " " + strength);
 		for (int i = 0; i < 11; i++) {
 			if (i == randomIndex) {
-				row.add(new SimpleNode<Enemy>(
-						new Enemy(strength, new Texture("images/enemy2.png"), xCoord, 420, this.speed, true, true, 30)));
+				row.add(new SimpleNode<Enemy>(new Enemy(strength, new Texture("images/enemy2.png"), xCoord, 420,
+						this.speed, true, true, 30)));
 			} else {
 				row.add(new SimpleNode<Enemy>(
 						new Enemy(1, new Texture("images/enemy3.png"), xCoord, 420, speed, false, true, 15)));
@@ -115,10 +116,11 @@ public class ClassARow extends AbstractEnemyRow {
 			firstXCoord += 65;
 		}
 	}
-	
+
 	public boolean isRowEmpty() {
 		return row.isEmpty();
 	}
+
 	@Override
 	public void rowWin(Window currentWindow) {
 		if (row.getFirst().getDato().getYCoord() < 50) {

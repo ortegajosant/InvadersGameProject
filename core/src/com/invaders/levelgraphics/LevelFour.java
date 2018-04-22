@@ -12,8 +12,8 @@ public class LevelFour extends Window {
 
 	public LevelFour(InvadersLauncher invadersLauncher) {
 		super(invadersLauncher);
-		rowList = new String[] {"Class A", "Class E" };
-		rowNumber = 4;
+		rowList = new String[] {"Class C","Class B", "Class D", "Class E" };
+		rowNumber = 5;
 		int index = (int) (Math.random() * rowList.length);
 		lastRow = rowList[index];
 		index = (int) (Math.random() * rowList.length);
@@ -38,7 +38,7 @@ public class LevelFour extends Window {
 	@Override
 	public void nextLevel() {
 		this.dispose();
-		invadersLauncher.setScreen(new MainMenu(invadersLauncher));
+		invadersLauncher.setScreen(new WinOverWindow(invadersLauncher, true));
 	}
 
 }

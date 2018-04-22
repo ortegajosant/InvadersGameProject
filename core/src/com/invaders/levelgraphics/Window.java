@@ -25,9 +25,9 @@ public abstract class Window implements Screen {
 	protected int rowNumber;
 	protected String lastRow;
 	protected String newRow;
-	private static BitmapFont levelName;
+	protected static BitmapFont gameText;
 	protected int levelNumber;
-	private static ShapeRenderer shape;
+	private static ShapeRenderer scoreBar;
 	protected static int gameScore;
 	protected static Sound bulletSound;
 	protected static Sound enemyDead;
@@ -50,9 +50,9 @@ public abstract class Window implements Screen {
 		keyObserver = KeyObserver.getObserverInstance();
 		factory = EnemiesFactoryRow.getInstance();
 		bullets = new Weapon();
-		levelName = new BitmapFont(Gdx.files.internal("font/mercutio_basic.fnt"),
+		gameText = new BitmapFont(Gdx.files.internal("font/mercutio_basic.fnt"),
 				Gdx.files.internal("font/mercutio_basic_0.png"), false);
-		shape = new ShapeRenderer();
+		scoreBar = new ShapeRenderer();
 		bulletSound = Gdx.audio.newSound(Gdx.files.internal("music/shoot.ogg"));
 		enemyDead = Gdx.audio.newSound(Gdx.files.internal("music/invaderKilled.ogg"));
 		levelUpSound = Gdx.audio.newSound(Gdx.files.internal("music/levelUp.ogg"));
@@ -83,16 +83,12 @@ public abstract class Window implements Screen {
 		}
 
 		// Disparos
-		if (keyObserver.keySpace() && gunActivation > 0.7f) {
+		if (keyObserver.keySpace() && gunActivation > 0.4f) {
 			bulletSound.play();
 			bullets.addBullet(player);
 			gunActivation = 0;
 		}
-
-		else if (keyObserver.keyEnter()) {
-			pause();
-		}
-
+		
 		bullets.shotBullet(delta);
 		int lastScore = gameScore;
 		gameScore += enemiesRow.deleteEnemy(bullets.getBullets());
@@ -116,15 +112,15 @@ public abstract class Window implements Screen {
 	public void renderGame() {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		shape.begin(ShapeType.Filled);
-		shape.rect(15, Gdx.graphics.getHeight() - 38, Gdx.graphics.getWidth() -25, 30);
-		shape.end();
+		scoreBar.begin(ShapeType.Filled);
+		scoreBar.rect(15, Gdx.graphics.getHeight() - 38, Gdx.graphics.getWidth() -25, 30);
+		scoreBar.end();
 		invadersLauncher.batch.begin();
 		player.render(invadersLauncher.batch);
 		bullets.show(invadersLauncher);
-		levelName.draw(invadersLauncher.batch, "Level " + levelNumber + "          Current: " + lastRow, 20, Gdx.graphics.getHeight() - 10);
-		levelName.draw(invadersLauncher.batch, "Next: " + newRow, Gdx.graphics.getWidth() - 370, Gdx.graphics.getHeight() - 10);
-		levelName.draw(invadersLauncher.batch, "Score: " + gameScore, Gdx.graphics.getWidth() - 170, Gdx.graphics.getHeight() - 10);
+		gameText.draw(invadersLauncher.batch, "Level " + levelNumber + "          Current: " + lastRow, 20, Gdx.graphics.getHeight() - 10);
+		gameText.draw(invadersLauncher.batch, "Next: " + newRow, Gdx.graphics.getWidth() - 370, Gdx.graphics.getHeight() - 10);
+		gameText.draw(invadersLauncher.batch, "Score: " + gameScore, Gdx.graphics.getWidth() - 170, Gdx.graphics.getHeight() - 10);
 		enemiesRow.showRow(invadersLauncher);
 		invadersLauncher.batch.end();
 		if (keyObserver.getWirelessControl() != null) {
@@ -172,7 +168,7 @@ public abstract class Window implements Screen {
 		bulletSound.dispose();
 		enemyDead.dispose();
 		enemyMovement.dispose();
-		invadersLauncher.setScreen(new MainMenu(invadersLauncher));
+		invadersLauncher.setScreen(new WinOverWindow(invadersLauncher, false));
 	}
 
 	@Override

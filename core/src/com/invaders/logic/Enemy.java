@@ -49,6 +49,7 @@ public class Enemy {
 		frame = animation.getKeyFrame(animationTime, true);
 		batch.draw(frame, xCoord, yCoord);
 	}
+			
 	
 	/**
 	 * Realiza el movimiento en pantalla para el enemigo
@@ -64,11 +65,17 @@ public class Enemy {
 			}
 		} else {
 			if (!direction) {
-				xCoord += (this.speed + 5) * deltatime;
+				xCoord += (this.speed) * deltatime;
 			} else {
-				xCoord -= (this.speed + 5) * deltatime;
+				xCoord -= (this.speed) * deltatime;
 			}
-			this.yCoord -= 750 * deltatime;
+			this.yCoord -= 950 * deltatime;
+			if (direction) {
+				xCoord-=(this.speed * 7) * deltatime;
+			} else {
+				xCoord+=(this.speed * 7) * deltatime;
+			}
+			
 			this.direction = !direction;
 		}
 	}

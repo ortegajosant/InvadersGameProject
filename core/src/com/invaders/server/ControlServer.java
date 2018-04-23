@@ -14,16 +14,16 @@ public class ControlServer implements Runnable {
 	private ServerSocket serverSocket;
 	private Socket socket;
 	private int port = 5555;
-	private ObjectOutputStream send;
+	private PrintWriter send;
 	private ObjectInputStream getMessage;
 	private int move;
 	private int shot;
-	private String[] stats;
+	private String stats;
 
 	private ControlServer() {
 		Thread serverThread = new Thread(this);
 		serverThread.start();
-		stats = new String[] {"Main Menu", "void", "void", "0"};
+		stats = "Level: Main Menu | Current: void | Next: void | Score: 0\n";
 	}
 
 	/**
@@ -80,20 +80,20 @@ public class ControlServer implements Runnable {
 				getMessage = new ObjectInputStream(socket.getInputStream());
 
 				int[] messageGetted = (int[]) getMessage.readObject();
-				System.out.println(messageGetted[0]);
-				System.out.println("SHOT"+messageGetted[1]);
 				// Asigna valores a las variables que influyen en el juego
 				shot = messageGetted[1];
 				move = messageGetted[0];
 
-				// Envía JSON al cliente para que muestre en pantalla los datos de la partida
-				send = new ObjectOutputStream(socket.getOutputStream());
-				send.writeObject(stats);
-
+				// Envía Array al cliente para que muestre en pantalla los datos de la partida
+				send = new PrintWriter(socket.getOutputStream());
+				send.write(stats);
+				send.println(stats);
+				send.flush();
+				
 				socket.close();
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			System.out.println(e);
 		}
 	}
 
@@ -105,9 +105,6 @@ public class ControlServer implements Runnable {
 	 * @param score Puntaje de partida
 	 */
 	public void setStats(String level, String current, String next, String score) {
-		stats[0] = level;
-		stats[1] = current;
-		stats[2] = next;
-		stats[3] = score;
+		this.stats = "Level: " + level + " | Current: " + current + " | Next: " + next + " | Score: " + score + "\n";
 	}
 }

@@ -187,7 +187,7 @@ public class ClassERow extends AbstractEnemyRow {
 		float xCoordDistance = (float) (950 * Math.sin(Math.PI / 3) * deltatime);
 		if (quadrant == 2) {
 			float firstXCoord = xCoord + xCoordDistance;
-			float firstYCoord = yCoord;
+			float firstYCoord = yCoord - yCoordDistance * 2;
 			for (int i = 0; i < limit; i++) {
 				row.find(i).setXCoord(firstXCoord);
 				row.find(i).setYCoord(firstYCoord);
@@ -196,7 +196,7 @@ public class ClassERow extends AbstractEnemyRow {
 			}
 		} else if (quadrant == 1) {
 			float firstXCoord = xCoord - xCoordDistance;
-			float firstYCoord = yCoord;
+			float firstYCoord = yCoord - yCoordDistance * 2;
 			for (int i = 0; i < limit; i++) {
 				row.find(i).setXCoord(firstXCoord);
 				row.find(i).setYCoord(firstYCoord);

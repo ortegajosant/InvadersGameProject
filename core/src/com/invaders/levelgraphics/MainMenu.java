@@ -37,7 +37,6 @@ public class MainMenu extends Window {
 	private SimpleList<Enemy> enemies;
 	private boolean showServer;
 	private ShapeRenderer serverMessage;
-	private ShapeRenderer serverMessage1;
 	private static BitmapFont serverText;
 
 	public MainMenu(InvadersLauncher invadersLauncher) {

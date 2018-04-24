@@ -11,16 +11,19 @@ import com.invaders.logic.Enemy;
 
 /**
  * Contiene toda la lógica y funcionamiento de la hilera básica
+ * 
  * @author jorte
  *
  */
 public class BasicRow extends AbstractEnemyRow {
 
 	private SimpleList<Enemy> row;
+	private float shotTime;
 
 	public BasicRow(int speed) {
 		super.speed = speed;
 		makeRow(true);
+		enemyBullet = new SimpleList<>();
 	}
 
 	/**
@@ -48,6 +51,7 @@ public class BasicRow extends AbstractEnemyRow {
 			row.add(new SimpleNode<Enemy>(
 					new Enemy(0, new Texture("images/enemy3.png"), xCoord, 420, super.speed, false, true, 20)));
 			xCoord += 65;
+
 		}
 	}
 
@@ -83,6 +87,7 @@ public class BasicRow extends AbstractEnemyRow {
 				row.find(i).render(invadersLauncher.batch);
 			}
 		}
+		super.showRow(invadersLauncher);
 	}
 
 	public SimpleList<Enemy> getRow() {
@@ -103,7 +108,29 @@ public class BasicRow extends AbstractEnemyRow {
 				}
 			}
 		}
+		shot();
+	}
 
+	public void shot() {
+		shotTime += Gdx.graphics.getDeltaTime();
+		if (shotTime >= 1.2
+				
+				) {
+			int random = (int) (Math.random() * row.getLength());
+			enemyBullet.add(new SimpleNode<EnemyBullet>(
+					new EnemyBullet(row.find(random).getXCoord(), row.find(random).getYCoord())));
+			shotTime = 0;
+		}
+		System.out.println(enemyBullet.getLength()); 
+		if (enemyBullet.getLength() > 0) {
+			for (int i = 0; i < enemyBullet.getLength(); i++) {
+				enemyBullet.find(i).update(Gdx.graphics.getDeltaTime());
+				if (enemyBullet.find(i).getRemove()) {
+					enemyBullet.remove(i);
+				}
+			}
+		}
+		
 	}
 
 	@Override
@@ -116,5 +143,9 @@ public class BasicRow extends AbstractEnemyRow {
 		if (row.getFirst().getDato().getYCoord() < 50) {
 			currentWindow.finishGame(currentWindow);
 		}
+	}
+	
+	public SimpleList<EnemyBullet> getEnemyBullet() {
+		return enemyBullet;
 	}
 }

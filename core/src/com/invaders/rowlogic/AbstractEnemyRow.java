@@ -12,6 +12,8 @@ import com.invaders.logic.Bullet;
  */
 public abstract class AbstractEnemyRow {
 	protected int speed;
+	protected SimpleList<EnemyBullet> enemyBullet;
+	protected float shotTime;
 
 	/**
 	 * Reacomoda la hilera de enemigos cada vez que un enemigo muere
@@ -57,6 +59,11 @@ public abstract class AbstractEnemyRow {
 	 * @param invaderslauncher Batch de la librería gráfica, el lienzo en donde pintar
 	 */
 	public void showRow(InvadersLauncher invaderslauncher) {
+		if (enemyBullet.getLength() > 0) {
+			for (int i = 0; i < enemyBullet.getLength(); i++) {
+				enemyBullet.find(i).render(invaderslauncher.batch);
+			}
+		}
 		
 	}
 	
@@ -80,5 +87,8 @@ public abstract class AbstractEnemyRow {
 	public void rowWin(Window currentWindow) {
 		
 	}
-
+	
+	public SimpleList<EnemyBullet> getEnemyBullet() {
+		return enemyBullet;
+	}
 }

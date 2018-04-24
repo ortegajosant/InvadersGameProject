@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.invaders.datastructures.DoubleList;
 import com.invaders.datastructures.DoubleNode;
 import com.invaders.datastructures.SimpleList;
+import com.invaders.datastructures.SimpleNode;
 import com.invaders.game.InvadersLauncher;
 import com.invaders.levelgraphics.Window;
 import com.invaders.logic.Bullet;
@@ -12,6 +13,7 @@ import com.invaders.logic.Enemy;
 
 /**
  * Contiene toda la lógica y funcionamiento de la hilera de enemigos clase B
+ * 
  * @author jorte
  *
  */
@@ -24,7 +26,9 @@ public class ClassBRow extends AbstractEnemyRow {
 	public ClassBRow(int speed) {
 		this.speed = speed;
 		makeRow(true);
-		changeMoveTimer = 0;	
+		enemyBullet = new SimpleList<>();
+		changeMoveTimer = 0;
+		shotTime = 0;
 	}
 
 	@Override
@@ -101,6 +105,7 @@ public class ClassBRow extends AbstractEnemyRow {
 			}
 		}
 		changeMoveTimer += deltaTime;
+		shot();
 	}
 
 	@Override
@@ -111,6 +116,26 @@ public class ClassBRow extends AbstractEnemyRow {
 			}
 			changeBoss();
 		}
+		super.showRow(invadersLauncher);
+	}
+
+	public void shot() {
+		shotTime += Gdx.graphics.getDeltaTime();
+		if (shotTime >= 1.2) {
+			int random = (int) (Math.random() * row.getLength());
+			enemyBullet.add(new SimpleNode<EnemyBullet>(
+					new EnemyBullet(row.find(random).getXCoord(), row.find(random).getYCoord())));
+			shotTime = 0;
+		}
+		if (enemyBullet.getLength() > 0) {
+			for (int i = 0; i < enemyBullet.getLength(); i++) {
+				enemyBullet.find(i).update(Gdx.graphics.getDeltaTime());
+				if (enemyBullet.find(i).getRemove()) {
+					enemyBullet.remove(i);
+				}
+			}
+		}
+
 	}
 
 	@Override
@@ -153,11 +178,11 @@ public class ClassBRow extends AbstractEnemyRow {
 			}
 		}
 	}
-	
+
 	public boolean isRowEmpty() {
 		return row.isEmpty();
 	}
-	
+
 	@Override
 	public void rowWin(Window currentWindow) {
 		if (row.getFirst().getDato().getYCoord() < 50) {

@@ -22,6 +22,8 @@ public class ClassDRow extends AbstractEnemyRow {
 	public ClassDRow(int speed) {
 		this.speed = speed;
 		makeRow(true);
+		enemyBullet = new SimpleList<>();
+		shotTime = 0;
 	}
 
 	@Override
@@ -46,6 +48,25 @@ public class ClassDRow extends AbstractEnemyRow {
 			xCoord += 65;
 		}
 		bubbleSortRow();
+	}
+	
+	public void shot() {
+		shotTime += Gdx.graphics.getDeltaTime();
+		if (shotTime >= 1.2) {
+			int random = (int) (Math.random() * row.getLength());
+			enemyBullet.add(new SimpleNode<EnemyBullet>(
+					new EnemyBullet(row.find(random).getXCoord(), row.find(random).getYCoord())));
+			shotTime = 0;
+		}
+		if (enemyBullet.getLength() > 0) {
+			for (int i = 0; i < enemyBullet.getLength(); i++) {
+				enemyBullet.find(i).update(Gdx.graphics.getDeltaTime());
+				if (enemyBullet.find(i).getRemove()) {
+					enemyBullet.remove(i);
+				}
+			}
+		}
+
 	}
 
 	@Override
@@ -101,6 +122,7 @@ public class ClassDRow extends AbstractEnemyRow {
 				}
 			}
 		}
+		shot();
 	}
 
 	@Override
@@ -110,6 +132,7 @@ public class ClassDRow extends AbstractEnemyRow {
 				row.find(i).render(invadersLauncher.batch);
 			}
 		}
+		super.showRow(invadersLauncher);
 	}
 
 	/**

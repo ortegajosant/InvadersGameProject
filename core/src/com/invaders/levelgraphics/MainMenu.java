@@ -193,6 +193,7 @@ public class MainMenu extends Window {
 		this.dispose();
 		mainTheme.stop();
 		mainTheme.dispose();
-		invadersLauncher.setScreen(new LevelOne(invadersLauncher));
+		invadersLauncher.setScreen(new LevelFour(invadersLauncher));
+		
 	}
 }

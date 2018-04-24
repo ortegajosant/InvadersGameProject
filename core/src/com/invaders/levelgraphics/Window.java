@@ -40,6 +40,17 @@ public abstract class Window implements Screen {
 		this.invadersLauncher = invadersLauncher;
 
 	}
+	
+	public void crashPlayer() {
+		if (enemiesRow.getEnemyBullet().getLength() > 0) {
+			for (int i = 0; i < enemiesRow.getEnemyBullet().getLength(); i++) {
+				if (enemiesRow.getEnemyBullet().find(i).getRectangle().overlaps(player.getRectangle())) {
+					finishGame(this);
+				}
+			}
+		}
+		
+	}
 
 	/**
 	 * Crea los objetos para mostrarlos en pantalla
@@ -104,6 +115,7 @@ public abstract class Window implements Screen {
 		if (!enemiesRow.isRowEmpty()) {
 			enemiesRow.rowWin(this);
 		}
+		crashPlayer();
 	}
 
 	/**

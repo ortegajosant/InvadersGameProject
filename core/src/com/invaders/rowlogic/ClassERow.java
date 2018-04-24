@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.invaders.datastructures.CircularDoubleList;
 import com.invaders.datastructures.SimpleList;
+import com.invaders.datastructures.SimpleNode;
 import com.invaders.datastructures.DoubleNode;
 import com.invaders.game.InvadersLauncher;
 import com.invaders.levelgraphics.Window;
@@ -18,6 +19,8 @@ public class ClassERow extends AbstractEnemyRow {
 	public ClassERow(int speed) {
 		this.speed = speed;
 		makeRow(true);
+		enemyBullet = new SimpleList<>();
+		shotTime = 0;
 	}
 
 	@Override
@@ -103,6 +106,25 @@ public class ClassERow extends AbstractEnemyRow {
 		else {
 			deleteRow();
 		}
+		shot();
+	}
+	
+	public void shot() {
+		shotTime += Gdx.graphics.getDeltaTime();
+		if (shotTime >= 1.2) {
+			int random = (int) (Math.random() * row.getLength());
+			enemyBullet.add(new SimpleNode<EnemyBullet>(
+					new EnemyBullet(row.find(random).getXCoord(), row.find(random).getYCoord())));
+			shotTime = 0;
+		}
+		if (enemyBullet.getLength() > 0) {
+			for (int i = 0; i < enemyBullet.getLength(); i++) {
+				enemyBullet.find(i).update(Gdx.graphics.getDeltaTime());
+				if (enemyBullet.find(i).getRemove()) {
+					enemyBullet.remove(i);
+				}
+			}
+		}
 
 	}
 
@@ -168,7 +190,7 @@ public class ClassERow extends AbstractEnemyRow {
 				row.find(i).render(invadersLauncher.batch);
 			}
 		}
-
+		super.showRow(invadersLauncher);
 	}
 
 	/**
@@ -187,7 +209,7 @@ public class ClassERow extends AbstractEnemyRow {
 		float xCoordDistance = (float) (950 * Math.sin(Math.PI / 3) * deltatime);
 		if (quadrant == 2) {
 			float firstXCoord = xCoord + xCoordDistance;
-			float firstYCoord = yCoord - yCoordDistance * 2;
+			float firstYCoord = yCoord - yCoordDistance;
 			for (int i = 0; i < limit; i++) {
 				row.find(i).setXCoord(firstXCoord);
 				row.find(i).setYCoord(firstYCoord);
@@ -196,7 +218,7 @@ public class ClassERow extends AbstractEnemyRow {
 			}
 		} else if (quadrant == 1) {
 			float firstXCoord = xCoord - xCoordDistance;
-			float firstYCoord = yCoord - yCoordDistance * 2;
+			float firstYCoord = yCoord - yCoordDistance;
 			for (int i = 0; i < limit; i++) {
 				row.find(i).setXCoord(firstXCoord);
 				row.find(i).setYCoord(firstYCoord);

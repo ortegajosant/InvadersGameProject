@@ -53,7 +53,6 @@ public class MainMenu extends Window {
 			exitButton = new Texture("images/exit.png");
 			arrowImage = new Texture("images/playLogo.png");
 			controlButton = new Texture("images/control.png");
-
 		}
 		keyObserver = KeyObserver.getObserverInstance();
 		this.yCoordArrow = 200;
@@ -81,9 +80,6 @@ public class MainMenu extends Window {
 	public void renderGame() {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		
-		
 		invadersLauncher.batch.begin();
 		invadersLauncher.batch.draw(titleImage, this.width / 2 - titleImage.getWidth() / 2, 300);
 		invadersLauncher.batch.draw(playButton, this.width / 2 - playButton.getWidth() / 2, 200);
@@ -97,7 +93,7 @@ public class MainMenu extends Window {
 				enemies.find(i).render(invadersLauncher.batch);
 			}
 		}
-		
+
 		invadersLauncher.batch.end();
 		if (showServer) {
 			serverMessage.begin(ShapeType.Filled);
@@ -108,18 +104,20 @@ public class MainMenu extends Window {
 			serverMessage.end();
 			try {
 				invadersLauncher.batch.begin();
-				serverText.draw(invadersLauncher.batch, "C O N T R O L  S E R V E R", Gdx.graphics.getWidth() / 2 - 130, Gdx.graphics.getHeight() / 2 + 120);
+				serverText.draw(invadersLauncher.batch, "C O N T R O L  S E R V E R", Gdx.graphics.getWidth() / 2 - 130,
+						Gdx.graphics.getHeight() / 2 + 120);
 				serverText.draw(invadersLauncher.batch, "IP:    " + InetAddress.getLocalHost().getHostAddress(),
 						Gdx.graphics.getWidth() / 2 - 105, Gdx.graphics.getHeight() / 2 + 70);
 				serverText.draw(invadersLauncher.batch, "PORT: " + 5555, Gdx.graphics.getWidth() / 2 - 65,
 						Gdx.graphics.getHeight() / 2 + 15);
-				serverText.draw(invadersLauncher.batch, "Press ENTER to continue", Gdx.graphics.getWidth() / 2 - 160, Gdx.graphics.getHeight() / 2 - 100);
+				serverText.draw(invadersLauncher.batch, "Press ENTER to continue", Gdx.graphics.getWidth() / 2 - 160,
+						Gdx.graphics.getHeight() / 2 - 100);
 				invadersLauncher.batch.end();
 			} catch (Exception e) {
 				System.out.println(e);
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -193,7 +191,7 @@ public class MainMenu extends Window {
 		this.dispose();
 		mainTheme.stop();
 		mainTheme.dispose();
-		invadersLauncher.setScreen(new LevelFour(invadersLauncher));
-		
+		invadersLauncher.setScreen(new LevelOne(invadersLauncher));
+
 	}
 }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark"
+    android:visibility="visible"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="app.invaders.com.invaderscontrol.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <Button
+        android:id="@+id/connectButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_marginStart="150dp"
+        android:background="@android:color/background_light"
+        android:text="@string/connect"
+        app:layout_constraintBottom_toBottomOf="@+id/portText"
+        app:layout_constraintStart_toEndOf="@+id/portText"
+        android:layout_marginLeft="52dp" />
+
+    <EditText
+        android:id="@+id/ipText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="368dp"
+        android:layout_marginTop="72dp"
+        android:background="@android:color/background_light"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/invaders_ip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleInvaders"
+        android:layout_marginRight="368dp" />
+
+    <EditText
+        android:id="@+id/portText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:background="@android:color/background_light"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/invaders_port"
+        app:layout_constraintStart_toStartOf="@+id/ipText"
+        app:layout_constraintTop_toBottomOf="@+id/ipText" />
+
+    <ImageView
+        android:id="@+id/titleInvaders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="34dp"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/invaders"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

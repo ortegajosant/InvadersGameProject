@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark"
+    android:visibility="visible"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="app.invaders.com.invaderscontrol.ControlActivity"
+    tools:showIn="@layout/activity_control">
+
+    <TextView
+        android:id="@+id/levelText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="100dp"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/shotButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="202dp"
+        android:background="@android:color/background_light"
+        android:text="SHOT" />
+
+    <ImageView
+        android:id="@+id/left_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="350dp"
+        android:layout_marginTop="250dp"
+        app:srcCompat="@drawable/left" />
+
+    <ImageView
+        android:id="@+id/right_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="250dp"
+        android:layout_marginLeft="350dp"
+        android:layout_marginStart="350dp"
+        app:srcCompat="@drawable/right" />
+
+    <ImageView
+        android:id="@+id/control"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="300dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="50dp"
+        app:srcCompat="@drawable/control" />
+
+</RelativeLayout>

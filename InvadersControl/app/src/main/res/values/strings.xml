@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">InvadersControl</string>
+    <string name="connect">Connect</string>
+    <string name="invaders_ip">Invaders IP</string>
+    <string name="invaders_port">Invaders Port</string>
+    <string name="todo">TODO</string>
+</resources>

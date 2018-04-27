@@ -20,7 +20,7 @@ public class Bullet {
 		if(sprite== null) {
 			sprite = new Texture("images/bullet.png");
 		}
-		this.yCoord = 40;
+		this.yCoord = 50;
 		this.xCoord = xCoord;
 		this.rectangleCollision = new Rectangle(this.xCoord, this.yCoord, sprite.getWidth(), sprite.getHeight());
 	}

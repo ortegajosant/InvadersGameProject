@@ -12,7 +12,7 @@ public class LevelFour extends Window {
 
 	public LevelFour(InvadersLauncher invadersLauncher) {
 		super(invadersLauncher);
-		rowList = new String[] { "Class E" };
+		rowList = new String[] {"Class D", "Class E" };
 		rowNumber = 3;
 		int index = (int) (Math.random() * rowList.length);
 		lastRow = rowList[index];

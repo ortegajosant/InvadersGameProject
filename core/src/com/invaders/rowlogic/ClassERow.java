@@ -11,6 +11,11 @@ import com.invaders.levelgraphics.Window;
 import com.invaders.logic.Bullet;
 import com.invaders.logic.Enemy;
 
+/**
+ * Contiene toda la lógica de movimientos para la hilera de enemigos Clase e
+ * @author jorte
+ *
+ */
 public class ClassERow extends AbstractEnemyRow {
 	private CircularDoubleList<Enemy> row;
 	private int quadrant;

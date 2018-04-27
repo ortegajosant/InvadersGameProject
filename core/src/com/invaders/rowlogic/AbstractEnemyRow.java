@@ -88,7 +88,16 @@ public abstract class AbstractEnemyRow {
 		
 	}
 	
+	/**
+	 * Retorna la lista de balas que hay en pantalla
+	 * @return SimpleList / Lista de balas enemigas
+	 */
 	public SimpleList<EnemyBullet> getEnemyBullet() {
 		return enemyBullet;
 	}
+	
+	/**
+	 * Realiza disparos de los enemigos
+	 */
+	public abstract void shot();
 }

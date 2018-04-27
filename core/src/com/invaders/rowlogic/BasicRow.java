@@ -113,9 +113,7 @@ public class BasicRow extends AbstractEnemyRow {
 
 	public void shot() {
 		shotTime += Gdx.graphics.getDeltaTime();
-		if (shotTime >= 1.2
-				
-				) {
+		if (shotTime >= 1.2 && row.getLength() > 0) {
 			int random = (int) (Math.random() * row.getLength());
 			enemyBullet.add(new SimpleNode<EnemyBullet>(
 					new EnemyBullet(row.find(random).getXCoord(), row.find(random).getYCoord())));

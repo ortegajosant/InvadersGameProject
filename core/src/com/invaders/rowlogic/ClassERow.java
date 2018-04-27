@@ -33,10 +33,10 @@ public class ClassERow extends AbstractEnemyRow {
 		for (int i = 0; i < 9; i++) {
 			if (i == 4) {
 				row.add(new DoubleNode<Enemy>(new Enemy(strength, new Texture("images/enemy2.png"), xCoord,
-						Gdx.graphics.getHeight() - 150, speed, true, true, 50)));
+						Gdx.graphics.getHeight() - 300, speed, true, true, 50)));
 			} else {
 				row.add(new DoubleNode<Enemy>(new Enemy(1, new Texture("images/enemy3.png"), xCoord,
-						Gdx.graphics.getHeight() - 150, speed, false, true, 20)));
+						Gdx.graphics.getHeight() - 300, speed, false, true, 20)));
 			}
 			xCoord += 65;
 		}
@@ -84,7 +84,7 @@ public class ClassERow extends AbstractEnemyRow {
 
 	@Override
 	public void moveRow(float deltaTime) {
-		if (rotationTime >= 0.1f) {
+		if (rotationTime >= 0.05f) {
 			rotateAction(deltaTime);
 			rotationTime = 0;
 		}
@@ -111,7 +111,7 @@ public class ClassERow extends AbstractEnemyRow {
 	
 	public void shot() {
 		shotTime += Gdx.graphics.getDeltaTime();
-		if (shotTime >= 1.2) {
+		if (shotTime >= 1.2 && row.getLength() > 0) {
 			int random = (int) (Math.random() * row.getLength());
 			enemyBullet.add(new SimpleNode<EnemyBullet>(
 					new EnemyBullet(row.find(random).getXCoord(), row.find(random).getYCoord())));

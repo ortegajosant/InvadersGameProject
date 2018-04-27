@@ -33,7 +33,7 @@ public class Spaceship {
 		sprites[0] = temp[0][0];
 		sprites[1] = temp[0][1];
 		animation = new Animation<>(1/4f, sprites);
-		this.xCoord = 250;
+		this.xCoord = Gdx.graphics.getWidth() / 2;
 		rectangleCollision = new Rectangle(this.xCoord, 30, 32, 32);
 		
 	}

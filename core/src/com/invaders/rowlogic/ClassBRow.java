@@ -21,7 +21,7 @@ public class ClassBRow extends AbstractEnemyRow {
 
 	private DoubleList<Enemy> row;
 	private float changeMoveTimer;
-	private final float changeMoveTimerConstant = 1.5f;
+	private final float changeMoveTimerConstant = 0.8f  ;
 
 	public ClassBRow(int speed) {
 		this.speed = speed;
@@ -121,7 +121,7 @@ public class ClassBRow extends AbstractEnemyRow {
 
 	public void shot() {
 		shotTime += Gdx.graphics.getDeltaTime();
-		if (shotTime >= 1.2) {
+		if (shotTime >= 1.2 && row.getLength() > 0) {
 			int random = (int) (Math.random() * row.getLength());
 			enemyBullet.add(new SimpleNode<EnemyBullet>(
 					new EnemyBullet(row.find(random).getXCoord(), row.find(random).getYCoord())));

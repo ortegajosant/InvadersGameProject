@@ -100,6 +100,11 @@ public abstract class Window implements Screen {
 			gunActivation = 0;
 		}
 		
+		if (keyObserver.keyEnter()) {
+			this.dispose();
+			invadersLauncher.setScreen(new MainMenu(invadersLauncher));
+		}
+		
 		bullets.shotBullet(delta);
 		int lastScore = gameScore;
 		gameScore += enemiesRow.deleteEnemy(bullets.getBullets());

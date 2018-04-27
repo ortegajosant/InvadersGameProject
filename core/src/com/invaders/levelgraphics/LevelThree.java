@@ -12,7 +12,7 @@ public class LevelThree extends Window {
 
 	public LevelThree(InvadersLauncher invadersLauncher) {
 		super(invadersLauncher);
-		rowList = new String[]{"Class A", "Class B", "Class C", "Class D"};
+		rowList = new String[]{ "Class B", "Class C", "Class D"};
 		rowNumber = 5;
 		int index = (int) (Math.random() * 3);
 		lastRow = rowList[index];
